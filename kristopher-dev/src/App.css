@@ -1,0 +1,60 @@
+.ft {
+  position: relative;
+  z-index: 2;
+  padding-block: 2.2rem 3rem;
+  border-block-start: 1px solid var(--line-soft);
+}
+
+.ft__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: var(--muted);
+}
+
+.ft__built span { color: var(--ink-dim); }
+
+/* Enlace para saltar la navegación: invisible hasta recibir foco.
+   Es lo primero que encuentra alguien que navega con teclado. */
+/* Patrón clásico: se posiciona fuera de la pantalla con `top` negativo
+   y baja al recibir foco. Se prefiere sobre `translate` porque la forma
+   abreviada de dos valores puede minificarse a una sola y dejar de
+   aplicarse en algunos navegadores. */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid var(--blue-40);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: var(--t--1);
+  transition: top 0.3s var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 0.6rem;
+}
+
+.ft__col { display: grid; gap: 0.25rem; }
+
+.ft__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+}
+
+.ft__links a {
+  font-family: var(--mono);
+  font-size: var(--t--1);
+  color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+
+.ft__links a:hover { color: var(--blue-hi); }

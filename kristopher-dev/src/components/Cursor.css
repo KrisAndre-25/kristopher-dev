@@ -1,0 +1,61 @@
+.cursor__ring,
+.cursor__dot {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 999;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--blue-40);
+  border-radius: 50%;
+  background: var(--blue-06);
+  transition:
+    width 0.32s var(--ease-out),
+    height 0.32s var(--ease-out),
+    border-color 0.32s var(--ease),
+    background 0.32s var(--ease),
+    opacity 0.25s var(--ease);
+}
+
+.cursor__ring.is-locked {
+  width: 54px;
+  height: 54px;
+  border-color: var(--blue);
+  background: var(--blue-12);
+}
+
+.cursor__ring.is-down {
+  width: 26px;
+  height: 26px;
+  background: var(--blue-22);
+}
+
+.cursor__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue-hi);
+  box-shadow: 0 0 10px var(--blue);
+  transition: opacity 0.25s var(--ease);
+}
+
+.cursor__ring.is-hidden,
+.cursor__dot.is-hidden { opacity: 0; }
+
+/* Oculta el cursor nativo solo cuando el personalizado está activo */
+body.has-cursor,
+body.has-cursor a,
+body.has-cursor button,
+body.has-cursor [data-magnetic] {
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  .cursor__ring,
+  .cursor__dot { display: none; }
+}

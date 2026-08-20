@@ -1,0 +1,213 @@
+/* Vive dentro de la navbar: posición relativa al botón, no flotante. */
+.a11y {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.a11y__toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--blue-06);
+  color: var(--ink-dim);
+  transition:
+    color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.a11y__toggle:hover,
+.a11y__toggle.is-open {
+  color: var(--white);
+  border-color: var(--blue-40);
+  background: var(--blue-12);
+}
+
+.a11y__toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* ── Panel compacto ───────────────────────────────────── */
+.a11y__panel {
+  position: absolute;
+  inset-block-start: calc(100% + 0.75rem);
+  inset-inline-end: 0;
+  z-index: 120;
+  display: grid;
+  gap: 0.5rem;
+  width: 232px;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(8, 11, 19, 0.96);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: 0 26px 60px -28px rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top right;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.3s var(--ease-out);
+}
+
+.a11y__panel.is-open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.a11y__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 28px;
+}
+
+.a11y__row--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+
+.a11y__rowLabel {
+  font-size: 0.68rem;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.a11y__auto {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+/* Control de tamaño de texto */
+.a11y__stepper {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.a11y__stepper button {
+  width: 26px;
+  height: 22px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--ink-dim);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.a11y__stepper button:hover:not(:disabled) {
+  background: var(--blue-12);
+  color: var(--white);
+}
+
+.a11y__stepper button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.a11y__stepValue {
+  min-width: 22px;
+  text-align: center;
+  font-size: 0.66rem;
+  color: var(--blue);
+}
+
+/* Paleta de color en puntos */
+.a11y__dots {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.a11y__dot {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-out);
+}
+
+.a11y__dot:hover { transform: scale(1.1); }
+.a11y__dot.is-active { border-color: var(--blue); }
+
+.a11y__dot i {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* Interruptores */
+.a11y__switch {
+  flex-shrink: 0;
+  width: 34px;
+  height: 19px;
+  padding: 2px;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.a11y__switch span {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.25s var(--ease-out), background 0.25s var(--ease);
+}
+
+.a11y__switch.is-on {
+  background: var(--blue-12);
+  border-color: var(--blue-40);
+}
+
+.a11y__switch.is-on span {
+  transform: translateX(15px);
+  background: var(--blue);
+}
+
+.a11y__reset {
+  margin-block-start: 0.15rem;
+  padding: 0.42rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--muted);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.a11y__reset:hover {
+  color: var(--white);
+  border-color: var(--blue-40);
+}
+
+/* En móvil el panel se ancla al borde de la pantalla, no al botón */
+@media (max-width: 880px) {
+  .a11y__panel {
+    position: fixed;
+    inset-block-start: 4.6rem;
+    inset-inline: auto clamp(0.75rem, 4vw, 1.25rem);
+    width: min(232px, calc(100vw - 1.5rem));
+  }
+}

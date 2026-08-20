@@ -1,0 +1,205 @@
+/**
+ * Temas de color accesibles.
+ *
+ * Cada tema redefine solo las variables de color; el resto del sistema
+ * (espaciado, tipografía, radios) no cambia. Se aplican con el atributo
+ * data-theme en <html>, así el cambio es instantáneo y sin recargar.
+ *
+ * Cada paleta resuelve una necesidad concreta, no es solo una variante
+ * estética:
+ *  - cian:     la identidad por defecto
+ *  - contraste: WCAG AAA para baja visión
+ *  - ambar:    accesible para tritanopía (donde el azul falla) y con
+ *              menos luz azul para uso nocturno
+ *  - claro:    fondo claro — el modo oscuro produce halación en personas
+ *              con astigmatismo, y para ellas es más difícil de leer
+ *  - violeta:  alternativa de identidad
+ */
+
+/* ── Cian (por defecto) ────────────────────────────────── */
+:root,
+[data-theme="cian"] {
+  --black: #080b13;
+  --surface: #0b0f19;
+  --elev-1: #10151f;
+  --elev-2: #151b28;
+
+  --blue: #2f7bff;
+  --blue-hi: #6aa6ff;
+  --blue-deep: #0a1f4d;
+  --blue-06: rgba(47, 123, 255, 0.06);
+  --blue-12: rgba(47, 123, 255, 0.12);
+  --blue-22: rgba(47, 123, 255, 0.22);
+  --blue-40: rgba(47, 123, 255, 0.40);
+
+  --white: #f4f7ff;
+  --ink: #e6ecfa;
+  --ink-dim: #97a6c4;
+  --muted: #6e7e9e;
+
+  --line: rgba(47, 123, 255, 0.16);
+  --line-soft: rgba(47, 123, 255, 0.08);
+  --glass: rgba(6, 9, 17, 0.62);
+
+  /* Color del efecto WebGL, en RGB 0..1 */
+  --fx-r: 0.184; --fx-g: 0.482; --fx-b: 1;
+}
+
+/* ── Alto contraste (WCAG AAA) ─────────────────────────── */
+[data-theme="contraste"] {
+  --black: #000000;
+  --surface: #05070c;
+  --elev-1: #0b0f16;
+  --elev-2: #131822;
+
+  --blue: #7cb8ff;
+  --blue-hi: #a9d2ff;
+  --blue-deep: #0a2352;
+  --blue-06: rgba(124, 184, 255, 0.10);
+  --blue-12: rgba(124, 184, 255, 0.18);
+  --blue-22: rgba(124, 184, 255, 0.32);
+  --blue-40: rgba(124, 184, 255, 0.55);
+
+  --white: #ffffff;
+  --ink: #ffffff;
+  --ink-dim: #d6e2f5;
+  --muted: #a9b8d0;
+
+  --line: rgba(124, 184, 255, 0.38);
+  --line-soft: rgba(124, 184, 255, 0.20);
+  --glass: rgba(0, 0, 0, 0.82);
+
+  --fx-r: 0.486; --fx-g: 0.722; --fx-b: 1;
+}
+
+/* ── Ámbar (seguro para tritanopía, menos luz azul) ────── */
+[data-theme="ambar"] {
+  --black: #0d0a06;
+  --surface: #14100a;
+  --elev-1: #1b160e;
+  --elev-2: #231c12;
+
+  --blue: #ffa726;
+  --blue-hi: #ffc670;
+  --blue-deep: #4a2f08;
+  --blue-06: rgba(255, 167, 38, 0.06);
+  --blue-12: rgba(255, 167, 38, 0.12);
+  --blue-22: rgba(255, 167, 38, 0.22);
+  --blue-40: rgba(255, 167, 38, 0.40);
+
+  --white: #fff8ef;
+  --ink: #f6ecdd;
+  --ink-dim: #cbb69a;
+  --muted: #a08d74;
+
+  --line: rgba(255, 167, 38, 0.18);
+  --line-soft: rgba(255, 167, 38, 0.09);
+  --glass: rgba(13, 10, 6, 0.66);
+
+  --fx-r: 1; --fx-g: 0.655; --fx-b: 0.149;
+}
+
+/* ── Claro ─────────────────────────────────────────────── */
+[data-theme="claro"] {
+  --black: #f2f5fb;
+  --surface: #ffffff;
+  --elev-1: #ffffff;
+  --elev-2: #eef2fa;
+
+  --blue: #1552d0;
+  --blue-hi: #0d3ca3;
+  --blue-deep: #cfdff9;
+  --blue-06: rgba(21, 82, 208, 0.05);
+  --blue-12: rgba(21, 82, 208, 0.10);
+  --blue-22: rgba(21, 82, 208, 0.20);
+  --blue-40: rgba(21, 82, 208, 0.38);
+
+  --white: #0a1020;
+  --ink: #16203a;
+  --ink-dim: #44506e;
+  --muted: #5c6784;
+
+  --line: rgba(21, 82, 208, 0.22);
+  --line-soft: rgba(21, 82, 208, 0.12);
+  --glass: rgba(255, 255, 255, 0.72);
+
+  --fx-r: 0.082; --fx-g: 0.322; --fx-b: 0.816;
+}
+
+/* ── Violeta ───────────────────────────────────────────── */
+[data-theme="violeta"] {
+  --black: #0a0812;
+  --surface: #0f0c1a;
+  --elev-1: #151024;
+  --elev-2: #1c162e;
+
+  --blue: #a06bff;
+  --blue-hi: #c39dff;
+  --blue-deep: #2a1157;
+  --blue-06: rgba(160, 107, 255, 0.06);
+  --blue-12: rgba(160, 107, 255, 0.12);
+  --blue-22: rgba(160, 107, 255, 0.22);
+  --blue-40: rgba(160, 107, 255, 0.40);
+
+  --white: #f7f3ff;
+  --ink: #ebe4fa;
+  --ink-dim: #a99cc4;
+  --muted: #82769c;
+
+  --line: rgba(160, 107, 255, 0.18);
+  --line-soft: rgba(160, 107, 255, 0.09);
+  --glass: rgba(10, 8, 18, 0.64);
+
+  --fx-r: 0.627; --fx-g: 0.42; --fx-b: 1;
+}
+
+/* Transición suave al cambiar de tema, sin afectar otras animaciones */
+html.theme-switching,
+html.theme-switching body,
+html.theme-switching .card,
+html.theme-switching .nav__bar,
+html.theme-switching .pj,
+html.theme-switching .cw__window {
+  transition:
+    background-color 0.45s var(--ease),
+    color 0.45s var(--ease),
+    border-color 0.45s var(--ease);
+}
+
+/* Escala de grises: para sensibilidad al color o fatiga visual.
+   Se implementa como un velo fijo con backdrop-filter en vez de un
+   filter sobre el contenedor. Dos razones:
+   1. `filter` en un ancestro convierte a sus hijos `position: fixed` en
+      posicionados respecto a él, con efectos secundarios difíciles de prever.
+   2. El velo se puede colocar por debajo del panel de accesibilidad, así
+      los selectores de color siguen viéndose a color y se pueden usar
+      incluso con el modo activado. */
+[data-grayscale="on"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  backdrop-filter: grayscale(1);
+  -webkit-backdrop-filter: grayscale(1);
+}
+
+/* Texto reducido */
+[data-text="chico"] {
+  --t--1: clamp(0.68rem, 0.66rem + 0.1vw, 0.74rem);
+  --t-0: clamp(0.84rem, 0.82rem + 0.14vw, 0.9rem);
+  --t-1: clamp(0.98rem, 0.92rem + 0.3vw, 1.14rem);
+  --t-2: clamp(1.24rem, 1.08rem + 0.7vw, 1.68rem);
+  --t-3: clamp(1.7rem, 1.35rem + 1.7vw, 2.6rem);
+  --t-4: clamp(2.2rem, 1.5rem + 3.4vw, 4rem);
+}
+
+/* Texto ampliado, para quien lo necesite */
+[data-text="grande"] {
+  --t--1: clamp(0.86rem, 0.82rem + 0.16vw, 0.94rem);
+  --t-0: clamp(1.06rem, 1.02rem + 0.22vw, 1.16rem);
+  --t-1: clamp(1.24rem, 1.14rem + 0.44vw, 1.46rem);
+  --t-2: clamp(1.58rem, 1.36rem + 1vw, 2.2rem);
+  --t-3: clamp(2.25rem, 1.75rem + 2.3vw, 3.45rem);
+  --t-4: clamp(3rem, 2rem + 4.6vw, 5.5rem);
+}

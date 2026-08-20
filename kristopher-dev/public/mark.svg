@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <!-- Marca del portafolio: el símbolo </> en formas sólidas,
+       pensado para reconstruirse bien como nube de partículas. -->
+  <polygon fill="#2f7bff" points="58,18 20,60 58,102 58,82 40,60 58,38"/>
+  <polygon fill="#2f7bff" points="98,102 116,102 142,18 124,18"/>
+  <polygon fill="#2f7bff" points="182,18 220,60 182,102 182,82 200,60 182,38"/>
+</svg>

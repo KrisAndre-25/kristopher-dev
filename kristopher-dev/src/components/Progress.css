@@ -1,0 +1,12 @@
+.prog {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 99;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-hi));
+  box-shadow: 0 0 12px var(--blue-40);
+  will-change: transform;
+}

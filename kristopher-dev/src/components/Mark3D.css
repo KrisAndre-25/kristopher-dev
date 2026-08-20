@@ -1,0 +1,45 @@
+.mark3d {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 0.7rem;
+  padding-block: clamp(1.5rem, 4vw, 2.6rem);
+  margin-block-end: clamp(1rem, 2.5vw, 1.6rem);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(70% 120% at 50% 0%, var(--blue-06), transparent 60%),
+    linear-gradient(180deg, var(--elev-1), var(--surface));
+  overflow: hidden;
+}
+
+.mark3d__canvas,
+.mark3d__static {
+  width: 100%;
+  height: clamp(180px, 26vw, 260px);
+}
+
+.mark3d__static {
+  display: grid;
+  place-items: center;
+}
+
+.mark3d__static svg {
+  width: min(240px, 60%);
+  height: auto;
+  fill: var(--blue);
+  filter: drop-shadow(0 0 24px var(--blue-40));
+  opacity: 0.9;
+}
+
+.mark3d__hint {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .mark3d__canvas,
+  .mark3d__static { height: 170px; }
+}

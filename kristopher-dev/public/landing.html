@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kristopher Astudillo — Desarrollador Full Stack</title>
+<meta name="description" content="Desarrollador Full Stack con foco en Frontend. React, TypeScript y Spring Boot, con base real en testing automatizado. Santiago, Chile." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   Landing alternativa — estética tipo póster.
+   CSS plano a propósito: Tailwind por CDN carga el compilador
+   completo y no está pensado para producción.
+   ============================================================ */
+
+:root {
+  --bg: #080b13;
+  --cream: #f4f7ff;
+  --accent: #2f7bff;          /* azul eléctrico de la marca */
+  --accent-soft: rgba(47, 123, 255, 0.35);
+  --maxw: 1831px;
+  --anton: "Anton", system-ui, sans-serif;
+  --cursive: "Condiment", cursive;
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--mono);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 4rem);
+}
+
+/* ── Vidrio líquido ───────────────────────────────────── */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Textura de grano sobre todo ──────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.6;
+  mix-blend-mode: lighten;
+  background-size: cover;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+/* ── Fondos animados.
+   Reemplazan al video: mismo rol visual, sin alojamiento externo
+   y sin megabytes de descarga. Para usar video real, pon un
+   <video> con la clase .bg-media dentro de .scene y borra .bg-anim. ── */
+.scene { position: relative; overflow: hidden; }
+
+.bg-anim {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  filter: blur(48px) saturate(130%);
+  opacity: 0.75;
+}
+.bg-anim span {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  33%  { transform: translate3d(12%, -8%, 0) scale(1.18); }
+  66%  { transform: translate3d(-9%, 10%, 0) scale(0.92); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+.bg-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(4,6,12,.55), rgba(4,6,12,.82));
+}
+
+/* El video tiene más detalle y contraste que un degradado, así que el
+   hero necesita un velo más denso para que el titular siga legible. */
+.hero .veil {
+  background:
+    linear-gradient(180deg, rgba(4,6,12,.62) 0%, rgba(4,6,12,.72) 45%, rgba(4,6,12,.9) 100%),
+    radial-gradient(70% 60% at 25% 70%, rgba(4,6,12,.55), transparent 70%);
+}
+
+/* Todo el contenido real va por encima del velo. Se listan las clases
+   en vez de usar `.scene > *` para no elevar también .bg-anim ni .veil. */
+.scene > .shell,
+.scene > .layer,
+.hero__body,
+.about__grid,
+.cta__text,
+.cta__social { position: relative; z-index: 2; }
+
+/* ── Tipografía base ──────────────────────────────────── */
+.anton { font-family: var(--anton); text-transform: uppercase; font-weight: 400; }
+.cursive { font-family: var(--cursive); text-transform: none; color: var(--accent); }
+.mono-up { font-family: var(--mono); text-transform: uppercase; line-height: 1.7; }
+
+/* ============================================================
+   SECCIÓN 1 — HERO
+   ============================================================ */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  border-end-start-radius: 32px;
+  border-end-end-radius: 32px;
+  /* El fondo animado usa inset:-20% para que el desenfoque no muestre
+     bordes duros; sin recorte se saldría del viewport en móvil. */
+  overflow: hidden;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+.brand { display: inline-flex; align-items: baseline; gap: .55rem; }
+.brand__mark { font-family: var(--anton); font-size: 20px; color: var(--accent); letter-spacing: .02em; }
+.brand__name { font-family: var(--anton); font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.9rem);
+  border-radius: 28px;
+  padding: 24px 52px;
+}
+.nav__links a {
+  font-family: var(--anton);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  transition: color .25s ease;
+}
+.nav__links a:hover { color: var(--accent); }
+@media (min-width: 1024px) { .nav__links { display: flex; } }
+
+.hero__body {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+.hero__inner { position: relative; width: 100%; }
+
+.hero__title {
+  position: relative;
+  font-family: var(--anton);
+  text-transform: uppercase;
+  font-size: 40px;
+  line-height: 1.05;
+  max-width: 820px;
+}
+@media (min-width: 640px)  { .hero__title { font-size: 60px; line-height: 1; } }
+@media (min-width: 768px)  { .hero__title { font-size: 75px; } }
+@media (min-width: 1024px) { .hero__title { font-size: 90px; margin-inline-start: 8rem; } }
+
+.hero__accent {
+  position: absolute;
+  font-family: var(--cursive);
+  color: var(--accent);
+  mix-blend-mode: exclusion;
+  opacity: .9;
+  transform: rotate(-1deg);
+  font-size: 24px;
+  inset-block-start: -1.4em;
+  inset-inline-start: 0;
+  white-space: nowrap;
+}
+@media (min-width: 768px)  { .hero__accent { font-size: 36px; } }
+@media (min-width: 1024px) {
+  .hero__accent { font-size: 48px; inset-block-start: .1em; inset-inline-start: auto; inset-inline-end: 4%; }
+}
+
+.hero__lede {
+  font-size: 12px;
+  color: rgba(244,247,255,.8);
+  max-width: 520px;
+  margin-block-start: 1.6rem;
+}
+@media (min-width: 640px)  { .hero__lede { font-size: 13px; } }
+@media (min-width: 1024px) { .hero__lede { margin-inline-start: 8rem; } }
+
+/* Íconos sociales */
+.social-desk {
+  display: none;
+  position: absolute;
+  inset-block-start: clamp(5rem, 9vw, 7rem);
+  inset-inline-end: clamp(1.15rem, 4vw, 4rem);
+  z-index: 3;
+  flex-direction: column;
+  gap: .6rem;
+}
+@media (min-width: 1024px) { .social-desk { display: flex; } }
+
+.sq {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  border-radius: 1rem;
+  transition: background .25s ease;
+}
+.sq:hover { background: rgba(255,255,255,.1); }
+.sq svg { width: 20px; height: 20px; }
+
+.social-mob { display: flex; gap: .6rem; margin-block-start: 2rem; }
+@media (min-width: 1024px) { .social-mob { display: none; } }
+@media (min-width: 1024px) { .hero__lede + .social-mob { display: none; } }
+
+svg.ln { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ============================================================
+   SECCIÓN 2 — SOBRE KRISTOPHER
+   ============================================================ */
+.about {
+  min-height: 100svh;
+  display: flex;
+  align-items: stretch;
+  padding-block: clamp(4rem, 8vw, 6rem);
+  overflow: hidden;
+}
+.about__grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(3rem, 8vw, 5rem);
+  width: 100%;
+}
+
+.about__top {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .about__top { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+}
+
+.about__h {
+  position: relative;
+  font-family: var(--anton);
+  text-transform: uppercase;
+  font-size: 32px;
+  line-height: 1.05;
+}
+@media (min-width: 640px)  { .about__h { font-size: 44px; } }
+@media (min-width: 1024px) { .about__h { font-size: 60px; } }
+
+.about__hAccent {
+  position: absolute;
+  font-family: var(--cursive);
+  color: var(--accent);
+  mix-blend-mode: exclusion;
+  transform: rotate(-2deg);
+  font-size: 36px;
+  inset-block-end: -.55em;
+  inset-inline-end: -.1em;
+}
+@media (min-width: 1024px) { .about__hAccent { font-size: 68px; } }
+
+.about__p {
+  font-size: 14px;
+  max-width: 320px;
+  line-height: 1.65;
+}
+@media (min-width: 640px) { .about__p { font-size: 16px; } }
+
+.about__hl { color: var(--accent); display: block; margin-block-start: 1.1rem; }
+
+.about__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .about__bottom { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+}
+.about__col { max-width: 46ch; display: grid; gap: 1.1rem; font-size: 13px; line-height: 1.7; }
+@media (min-width: 640px) { .about__col { font-size: 15px; } }
+.about__col p:first-child { color: rgba(244,247,255,.9); }
+.about__col p:last-child  { color: rgba(244,247,255,.4); }
+
+.about__colR { display: none; text-align: right; }
+@media (min-width: 1024px) { .about__colR { display: grid; } }
+.about__colR p:first-child { color: rgba(244,247,255,.4); }
+.about__colR p:last-child  { color: rgba(244,247,255,.2); }
+
+/* ============================================================
+   SECCIÓN 3 — RESULTADOS
+   ============================================================ */
+.results { padding-block: clamp(5rem, 10vw, 7rem); background: var(--bg); }
+
+.results__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-block-end: clamp(2.5rem, 5vw, 3.5rem);
+}
+@media (min-width: 768px) {
+  .results__head { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+}
+
+.results__h {
+  font-family: var(--anton);
+  text-transform: uppercase;
+  font-size: 32px;
+  line-height: 1.05;
+}
+@media (min-width: 640px)  { .results__h { font-size: 44px; } }
+@media (min-width: 1024px) { .results__h { font-size: 60px; } }
+.results__h .l2 { display: block; margin-inline-start: 3rem; }
+@media (min-width: 640px)  { .results__h .l2 { margin-inline-start: 6rem; } }
+@media (min-width: 1024px) { .results__h .l2 { margin-inline-start: 8rem; } }
+
+.seeall { display: inline-block; text-align: left; }
+.seeall__row { display: flex; align-items: flex-end; gap: .7rem; }
+.seeall__big {
+  font-family: var(--anton); text-transform: uppercase;
+  font-size: 32px; line-height: .9; transition: color .25s ease;
+}
+@media (min-width: 1024px) { .seeall__big { font-size: 60px; } }
+.seeall:hover .seeall__big { color: var(--accent); }
+.seeall__stack { font-family: var(--anton); text-transform: uppercase; font-size: 20px; line-height: 1.05; }
+@media (min-width: 1024px) { .seeall__stack { font-size: 36px; } }
+.seeall__bar { height: 6px; background: var(--accent); margin-block-start: .6rem; }
+@media (min-width: 1024px) { .seeall__bar { height: 10px; } }
+
+.cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px)  { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+
+.card { border-radius: 32px; padding: 18px; transition: background .3s ease; }
+.card:hover { background: rgba(255,255,255,.1); }
+
+.card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.card__inner { position: absolute; inset: 0; }
+
+.card__label {
+  position: absolute; inset-block-start: 20px; inset-inline-start: 20px; z-index: 3;
+  font-family: var(--anton); text-transform: uppercase; font-size: 13px;
+  letter-spacing: .06em; color: rgba(244,247,255,.85);
+}
+.card__num {
+  position: absolute; inset-block-start: 40px; inset-inline-start: 20px; z-index: 3;
+  font-family: var(--anton); font-size: 56px; line-height: 1; color: var(--accent);
+}
+
+.card__bar {
+  position: absolute; z-index: 3;
+  inset-inline: 14px; inset-block-end: 14px;
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.card__barTxt { display: grid; gap: 2px; min-width: 0; }
+.card__barTxt small { font-size: 11px; color: rgba(244,247,255,.7); text-transform: uppercase; }
+.card__barTxt span  { font-size: 16px; color: var(--cream); }
+
+.card__go {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 8px 24px var(--accent-soft);
+  transition: transform .25s ease;
+}
+.card__go:hover { transform: scale(1.1); }
+.card__go svg { width: 18px; height: 18px; fill: none; stroke: #080b13; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ============================================================
+   SECCIÓN 4 — CTA
+   ============================================================ */
+.cta { position: relative; overflow: hidden; }
+.cta__stage {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cta__text {
+  position: relative; z-index: 2;
+  text-align: right;
+  padding-inline: clamp(1.15rem, 4vw, 4rem);
+  max-width: 900px;
+}
+@media (min-width: 1024px) {
+  .cta__text { padding-inline-end: 18%; padding-inline-start: 15%; }
+}
+
+.cta__accent {
+  display: block;
+  font-family: var(--cursive);
+  color: var(--accent);
+  mix-blend-mode: exclusion;
+  font-size: 17px;
+  text-align: left;
+  margin-block-end: .3rem;
+}
+@media (min-width: 640px)  { .cta__accent { font-size: 34px; } }
+@media (min-width: 1024px) { .cta__accent { font-size: 68px; } }
+
+.cta__h {
+  font-family: var(--anton);
+  text-transform: uppercase;
+  font-size: 20px;
+  line-height: 1.15;
+}
+@media (min-width: 640px)  { .cta__h { font-size: 36px; } }
+@media (min-width: 1024px) { .cta__h { font-size: 60px; } }
+.cta__h .first { display: block; margin-block-end: 1rem; }
+@media (min-width: 1024px) { .cta__h .first { margin-block-end: 3rem; } }
+
+.cta__p {
+  font-size: 11px;
+  color: rgba(244,247,255,.7);
+  max-width: 420px;
+  margin-inline-start: auto;
+  margin-block-start: 1.6rem;
+}
+@media (min-width: 640px) { .cta__p { font-size: 13px; } }
+
+.cta__social {
+  position: absolute;
+  inset-inline-start: 8%;
+  inset-block-end: 12%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+@media (min-width: 1024px) { .cta__social { border-radius: 1.25rem; inset-block-end: 20%; } }
+.cta__social a {
+  display: grid; place-items: center;
+  width: 14vw; height: 14vw;
+  max-width: 92px; max-height: 92px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  transition: background .25s ease;
+}
+.cta__social a:last-child { border-bottom: none; }
+.cta__social a:hover { background: rgba(255,255,255,.1); }
+.cta__social svg { width: 22px; height: 22px; }
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: clamp(1.5rem, 3vw, 2.2rem);
+  font-family: var(--anton);
+  text-transform: uppercase;
+  font-size: 12px;
+  color: rgba(244,247,255,.6);
+}
+.foot__handle { font-family: var(--cursive); text-transform: none; color: var(--accent); font-size: 20px; }
+
+/* ── Accesibilidad ────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bg-anim span { animation: none; }
+  /* Se oculta el video y queda el poster, que es un fotograma estático
+     del mismo material: se ve igual, sin movimiento. */
+  .bg-media { display: none; }
+  .hero { background: #0d1024 url("video/bg-poster.jpg") center/cover no-repeat; }
+}
+</style>
+</head>
+
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ 1. HERO ============ -->
+<header class="hero scene">
+  <!-- Fondo de video. El poster se pinta de inmediato para que nunca
+       haya un hueco negro mientras el video descarga.
+       preload="none" en móvil se ajusta por JS más abajo. -->
+  <video class="bg-media" poster="video/bg-poster.jpg"
+         autoplay loop muted playsinline preload="auto" aria-hidden="true">
+    <!-- WebM primero: pesa menos y lo soportan Chrome, Firefox y Edge.
+         El MP4 queda como alternativa para Safari. -->
+    <source src="video/bg.webm" type="video/webm" />
+    <source src="video/bg.mp4" type="video/mp4" />
+  </video>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="layer">
+    <div class="shell nav">
+      <a class="brand" href="#inicio">
+        <span class="brand__mark">KA</span>
+        <span class="brand__name">Kristopher Astudillo</span>
+      </a>
+
+      <nav class="nav__links liquid-glass" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#proyecto">Proyecto</a>
+        <a href="#stack">Stack</a>
+        <a href="#certificados">Certificados</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="social-desk" aria-label="Contacto directo">
+    <a class="sq liquid-glass" href="mailto:kristopherastudillo@gmail.com" aria-label="Correo">
+      <svg class="ln" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+    </a>
+    <a class="sq liquid-glass" href="https://wa.me/56950902425" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 00-8.5 15l-1.4 5 5.15-1.35A9.9 9.9 0 1012.04 2zm0 18.15a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.1.82.83-3.04-.2-.31a8.2 8.2 0 1112.28 2.7 8.16 8.16 0 01-5.32 1.16zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+    </a>
+    <a class="sq liquid-glass" href="https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+      <svg class="ln" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6M8 7.6v.1M12 16.5v-3.4a2 2 0 014 0v3.4"/></svg>
+    </a>
+  </div>
+
+  <div class="hero__body" id="inicio">
+    <div class="shell hero__inner">
+      <h1 class="hero__title">
+        Construyo interfaces que no se rompen
+        <span class="hero__accent">frontend first</span>
+      </h1>
+
+      <p class="hero__lede mono-up">
+        Desarrollador Full Stack en Santiago de Chile. React, TypeScript y Spring Boot,
+        con base real en testing automatizado.
+      </p>
+
+      <div class="social-mob">
+        <a class="sq liquid-glass" href="mailto:kristopherastudillo@gmail.com" aria-label="Correo">
+          <svg class="ln" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+        </a>
+        <a class="sq liquid-glass" href="https://wa.me/56950902425" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 00-8.5 15l-1.4 5 5.15-1.35A9.9 9.9 0 1012.04 2zm0 18.15a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.1.82.83-3.04-.2-.31a8.2 8.2 0 1112.28 2.7 8.16 8.16 0 01-5.32 1.16z"/></svg>
+        </a>
+        <a class="sq liquid-glass" href="https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <svg class="ln" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6M8 7.6v.1M12 16.5v-3.4a2 2 0 014 0v3.4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 2. SOBRE KRISTOPHER ============ -->
+<section class="about scene" id="proyecto">
+  <div class="bg-anim" aria-hidden="true">
+    <span style="width:65%;height:75%;right:-10%;top:-5%;background:#0d2a63;animation-duration:32s"></span>
+    <span style="width:50%;height:60%;left:-6%;bottom:-10%;background:#2f7bff;opacity:.42;animation-duration:38s;animation-delay:-9s"></span>
+  </div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="shell about__grid">
+    <div class="about__top">
+      <h2 class="about__h">
+        Hola! Soy Kristopher
+        <span class="about__hAccent">astudillo</span>
+      </h2>
+
+      <p class="about__p mono-up">
+        Vengo del testing automatizado. Eso cambió cómo escribo código: pienso primero
+        en qué puede fallar. No entrego una interfaz sin saber cómo se comporta cuando
+        algo se rompe.
+        <span class="about__hl">100% de la suite E2E implementada en una plataforma real.</span>
+      </p>
+    </div>
+
+    <div class="about__bottom">
+      <div class="about__col mono-up">
+        <p>Titulado como Analista Programador — Desarrollador Full Stack en DuocUC.
+           Continúo con Ingeniería en Informática, mención Desarrollo de Software.</p>
+        <p>Práctica profesional en Speaknosis Chile, plataforma de salud digital con IA.
+           No hablo de calidad desde la teoría.</p>
+      </div>
+
+      <div class="about__col about__colR mono-up">
+        <p>Más de 30 casos de prueba automatizados con Playwright.
+           Más de 15 pruebas inestables eliminadas del pipeline.</p>
+        <p>StudyMatch: frontend completo en React, backend en Spring Boot
+           e infraestructura definida con Terraform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. RESULTADOS ============ -->
+<section class="results" id="stack">
+  <div class="shell">
+    <div class="results__head">
+      <h2 class="results__h">
+        Resultados de
+        <span class="l2"><span class="cursive">proyectos</span> reales</span>
+      </h2>
+
+      <a class="seeall" href="#contacto">
+        <span class="seeall__row">
+          <span class="seeall__big">Ver</span>
+          <span class="seeall__stack">Todo<br>El detalle</span>
+        </span>
+        <span class="seeall__bar"></span>
+      </a>
+    </div>
+
+    <ul class="cards">
+      <li class="card liquid-glass">
+        <div class="card__media">
+          <div class="card__inner scene">
+            <div class="bg-anim" aria-hidden="true" style="filter:blur(38px)">
+              <span style="width:80%;height:80%;left:0;top:0;background:#173d8f;animation-duration:24s"></span>
+              <span style="width:60%;height:60%;right:-10%;bottom:-10%;background:#2f7bff;opacity:.5;animation-duration:30s;animation-delay:-5s"></span>
+            </div>
+            <div class="veil" aria-hidden="true"></div>
+          </div>
+          <span class="card__label">Cobertura E2E</span>
+          <span class="card__num">100%</span>
+          <div class="card__bar liquid-glass">
+            <span class="card__barTxt">
+              <small>Resultado:</small>
+              <span>Suite completa en Speaknosis</span>
+            </span>
+            <span class="card__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </li>
+
+      <li class="card liquid-glass">
+        <div class="card__media">
+          <div class="card__inner scene">
+            <div class="bg-anim" aria-hidden="true" style="filter:blur(38px)">
+              <span style="width:75%;height:75%;right:0;top:-5%;background:#0f2f78;animation-duration:28s"></span>
+              <span style="width:55%;height:55%;left:-8%;bottom:-8%;background:#4a90ff;opacity:.45;animation-duration:33s;animation-delay:-8s"></span>
+            </div>
+            <div class="veil" aria-hidden="true"></div>
+          </div>
+          <span class="card__label">Endpoints REST</span>
+          <span class="card__num">+13</span>
+          <div class="card__bar liquid-glass">
+            <span class="card__barTxt">
+              <small>Resultado:</small>
+              <span>Integrados en StudyMatch</span>
+            </span>
+            <span class="card__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </li>
+
+      <li class="card liquid-glass">
+        <div class="card__media">
+          <div class="card__inner scene">
+            <div class="bg-anim" aria-hidden="true" style="filter:blur(38px)">
+              <span style="width:70%;height:70%;left:5%;top:-8%;background:#0a2358;animation-duration:26s"></span>
+              <span style="width:62%;height:62%;right:-6%;bottom:-6%;background:#2f7bff;opacity:.48;animation-duration:36s;animation-delay:-11s"></span>
+            </div>
+            <div class="veil" aria-hidden="true"></div>
+          </div>
+          <span class="card__label">Pruebas inestables</span>
+          <span class="card__num">−15</span>
+          <div class="card__bar liquid-glass">
+            <span class="card__barTxt">
+              <small>Resultado:</small>
+              <span>Flaky tests eliminados</span>
+            </span>
+            <span class="card__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 4. CTA ============ -->
+<section class="cta" id="contacto">
+  <div class="cta__stage scene">
+    <div class="bg-anim" aria-hidden="true">
+      <span style="width:70%;height:90%;left:-8%;top:-10%;background:#102c66;animation-duration:30s"></span>
+      <span style="width:60%;height:80%;right:-5%;bottom:-12%;background:#2f7bff;opacity:.4;animation-duration:36s;animation-delay:-10s"></span>
+    </div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="cta__text">
+      <span class="cta__accent">hablemos</span>
+      <h2 class="cta__h">
+        <span class="first">Escríbeme.</span>
+        Disponibilidad inmediata.<br>
+        Remoto, híbrido o presencial.<br>
+        Santiago, Chile.
+      </h2>
+      <p class="cta__p mono-up">
+        Busco mi primer rol full-time como desarrollador. Respondo el mismo día.
+      </p>
+    </div>
+
+    <div class="cta__social liquid-glass" aria-label="Contacto">
+      <a href="mailto:kristopherastudillo@gmail.com" aria-label="Correo">
+        <svg class="ln" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+      </a>
+      <a href="https://wa.me/56950902425" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 00-8.5 15l-1.4 5 5.15-1.35A9.9 9.9 0 1012.04 2zm0 18.15a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.1.82.83-3.04-.2-.31a8.2 8.2 0 1112.28 2.7 8.16 8.16 0 01-5.32 1.16z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <svg class="ln" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6M8 7.6v.1M12 16.5v-3.4a2 2 0 014 0v3.4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="shell foot">
+    <span>KA — Kristopher Astudillo</span>
+    <span class="foot__handle">@KrisAndre-25</span>
+  </div>
+</section>
+
+<script>
+  /* El video de fondo es decorativo: 1.3 MB no valen la pena si el
+     usuario pidió menos movimiento o está en una conexión lenta.
+     En esos casos se queda el poster, que ya está pintado. */
+  (function () {
+    var v = document.querySelector('.bg-media');
+    if (!v) return;
+
+    var menosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var redLenta = conn && (conn.saveData === true || /2g/.test(conn.effectiveType || ''));
+
+    if (menosMovimiento || redLenta) {
+      v.removeAttribute('autoplay');
+      v.preload = 'none';
+      v.pause();
+      v.remove();
+      document.querySelector('.hero').style.background =
+        '#0d1024 url("video/bg-poster.jpg") center/cover no-repeat';
+      return;
+    }
+
+    /* Si el autoplay falla (algunos navegadores lo bloquean pese a estar
+       silenciado), no queda un hueco: el poster sigue visible. */
+    var intento = v.play();
+    if (intento && typeof intento.catch === 'function') {
+      intento.catch(function () { /* el poster cubre el caso */ });
+    }
+  })();
+</script>
+
+</body>
+</html>

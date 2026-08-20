@@ -1,0 +1,108 @@
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.4vw, 1rem);
+}
+
+.bento__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: clamp(1.15rem, 2.4vw, 1.7rem);
+  overflow: hidden;
+}
+
+.bento__card--wide { grid-column: span 2; }
+.bento__card--full { grid-column: 1 / -1; }
+.bento__card--tall { grid-row: span 2; }
+
+.bento__eyebrow { font-size: 0.68rem; }
+
+.bento__title {
+  font-size: var(--t-1);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.bento__title--sm {
+  font-size: var(--t-0);
+  color: var(--ink);
+}
+
+.bento__metric {
+  font-family: var(--mono);
+  font-size: clamp(2.1rem, 4.4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 32px rgba(47, 123, 255, 0.4);
+}
+
+.bento__note,
+.bento__body {
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+.bento__note {
+  font-size: var(--t--1);
+  color: var(--muted);
+}
+
+.bento__list {
+  display: grid;
+  gap: 0.6rem;
+  margin-block-start: auto;
+}
+
+.bento__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  font-size: var(--t--1);
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+
+.bento__bullet {
+  width: 5px;
+  height: 5px;
+  translate: 0 0.55em;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue-40);
+}
+
+.bento__pill { margin-block-start: auto; align-self: flex-start; }
+
+/* Esquina técnica decorativa */
+.bento__corner {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: 46px;
+  height: 46px;
+  border-inline-end: 1px solid var(--blue-22);
+  border-block-end: 1px solid var(--blue-22);
+  border-end-end-radius: var(--radius);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.bento__card:hover .bento__corner { opacity: 1; }
+
+@media (max-width: 900px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento__card--wide { grid-column: span 2; }
+}
+
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+  .bento__card--wide,
+  .bento__card--full { grid-column: span 1; }
+}

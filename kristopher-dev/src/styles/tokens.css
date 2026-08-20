@@ -1,0 +1,34 @@
+:root {
+  /* Los colores viven en themes.css (una paleta por tema). */
+
+  /* ── Tipografía ───────────────────────────────────────── */
+  --display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* ── Escala tipográfica fluida ────────────────────────── */
+  --t--1: clamp(0.75rem, 0.72rem + 0.14vw, 0.82rem);
+  --t-0:  clamp(0.94rem, 0.90rem + 0.20vw, 1.02rem);
+  --t-1:  clamp(1.10rem, 1.02rem + 0.40vw, 1.30rem);
+  --t-2:  clamp(1.40rem, 1.20rem + 0.90vw, 1.95rem);
+  --t-3:  clamp(2.00rem, 1.55rem + 2.10vw, 3.10rem);
+  --t-4:  clamp(2.70rem, 1.80rem + 4.20vw, 5.00rem);
+
+  /* ── Ritmo y layout ───────────────────────────────────── */
+  --gutter: clamp(1.15rem, 4vw, 4rem);
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --maxw: 1180px;
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  /* ── Movimiento ───────────────────────────────────────── */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.30, 1);
+
+  /* ── Sombras ──────────────────────────────────────────── */
+  --shadow-soft: 0 18px 50px -24px rgba(0, 0, 0, 0.9);
+  --shadow-glow: 0 0 0 1px var(--line), 0 22px 60px -30px var(--blue-40);
+
+  /* posición del puntero (la fija el JS, la consume el CSS) */
+  --px: 0;
+  --py: 0;
+}
