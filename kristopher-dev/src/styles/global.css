@@ -227,3 +227,22 @@ main { position: relative; z-index: 2; }
     transform: none;
   }
 }
+
+/* ── Alto contraste (switch de accesibilidad) ─────────────
+   El sitio está construido con colores oscuros fijos por
+   componente (no con tokens que un modo claro pueda leer),
+   así que en vez de repintar cada clase, se invierte toda la
+   página: pasa de fondo oscuro/texto claro a fondo blanco con
+   texto y bordes negros de alto contraste. Las imágenes y el
+   video se invierten una segunda vez para que no queden en
+   negativo. */
+html.high-contrast body {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.high-contrast img,
+html.high-contrast video,
+html.high-contrast canvas,
+html.high-contrast svg image {
+  filter: invert(1) hue-rotate(180deg);
+}

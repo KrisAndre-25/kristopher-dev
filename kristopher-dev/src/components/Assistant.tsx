@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { intents, assistantFallback, profile } from "../data/content";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useContent } from "../data/useContent";
+import { useUiStrings } from "../data/ui-strings";
 import "./Assistant.css";
 
 type Msg = { id: number; from: "bot" | "user"; text: string };
@@ -9,7 +10,7 @@ const norm = (s: string) =>
   s
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[¿?¡!.,;:()"']/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -81,51 +82,45 @@ function puntuar(consulta: string, clave: string): number {
   return total >= 4 ? total : 0;
 }
 
-/**
- * Resuelve la respuesta desde la base de conocimiento local.
- *
- * Para conectar un modelo real más adelante, reemplaza el cuerpo de esta
- * función por una llamada a tu backend. No pongas claves de API en el
- * cliente: quedarían expuestas en el bundle.
- */
-function resolve(input: string): string {
-  const q = norm(input);
-  if (!q) return assistantFallback;
-
-  let mejor: { score: number; answer: string } | null = null;
-
-  for (const intent of intents) {
-    // El mejor encaje de una sola clave decide, no la suma: si sumáramos,
-    // una intención con muchas claves que comparten palabras comunes
-    // ("que", "de") ganaría por acumulación en vez de por relevancia.
-    let score = 0;
-    for (const key of intent.keys) {
-      const s = puntuar(q, key);
-      if (s > score) score = s;
-    }
-    if (score > 0 && (!mejor || score > mejor.score)) {
-      mejor = { score, answer: intent.answer };
-    }
-  }
-
-  return mejor ? mejor.answer : assistantFallback;
-}
-
-const suggestions = intents.filter((i) => i.suggested);
-
 let seq = 0;
 const nextId = () => ++seq;
 
 export default function Assistant() {
+  const { profile, intents, assistantFallback } = useContent();
+  const t = useUiStrings().assistant;
+
+  const resolve = useMemo(() => {
+    return (input: string): string => {
+      const q = norm(input);
+      if (!q) return assistantFallback;
+
+      let mejor: { score: number; answer: string } | null = null;
+
+      for (const intent of intents) {
+        // El mejor encaje de una sola clave decide, no la suma: si sumáramos,
+        // una intención con muchas claves que comparten palabras comunes
+        // ("que", "de") ganaría por acumulación en vez de por relevancia.
+        let score = 0;
+        for (const key of intent.keys) {
+          const s = puntuar(q, key);
+          if (s > score) score = s;
+        }
+        if (score > 0 && (!mejor || score > mejor.score)) {
+          mejor = { score, answer: intent.answer };
+        }
+      }
+
+      return mejor ? mejor.answer : assistantFallback;
+    };
+  }, [intents, assistantFallback]);
+
+  const suggestions = useMemo(() => intents.filter((i) => i.suggested), [intents]);
+
   const [open, setOpen] = useState(false);
   const [typing, setTyping] = useState(false);
   const [draft, setDraft] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([
-    {
-      id: nextId(),
-      from: "bot",
-      text: `Hola. Soy el asistente del portafolio de ${profile.name}. Puedo responder sobre su stack, experiencia, proyectos y disponibilidad.`,
-    },
+    { id: nextId(), from: "bot", text: t.greeting(profile.name) },
   ]);
 
   const logRef = useRef<HTMLDivElement | null>(null);
@@ -159,12 +154,12 @@ export default function Assistant() {
     setDraft("");
     setTyping(true);
 
-    const t = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setTyping(false);
       setMsgs((m) => [...m, { id: nextId(), from: "bot", text: resolve(clean) }]);
     }, 480);
 
-    timers.current.push(t);
+    timers.current.push(timer);
   };
 
   return (
@@ -174,7 +169,7 @@ export default function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="assistant-panel"
-        aria-label={open ? "Cerrar asistente" : "Abrir asistente"}
+        aria-label={open ? t.closeAria : t.openAria}
         data-magnetic
       >
         <span className="as__toggleIcon" aria-hidden="true">
@@ -195,7 +190,7 @@ export default function Assistant() {
         className={`as ${open ? "is-open" : ""}`}
         id="assistant-panel"
         role="dialog"
-        aria-label="Asistente del portafolio"
+        aria-label={t.panelAria}
         aria-modal="false"
       >
         <header className="as__head">
@@ -203,13 +198,13 @@ export default function Assistant() {
             <span />
           </span>
           <div className="as__ident">
-            <p className="as__name">Asistente</p>
+            <p className="as__name">{t.name}</p>
             <p className="as__status mono">
               <span className="as__dot" aria-hidden="true" />
-              en línea
+              {t.online}
             </p>
           </div>
-          <button className="as__close" onClick={() => setOpen(false)} aria-label="Cerrar">
+          <button className="as__close" onClick={() => setOpen(false)} aria-label={t.closeAria}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M7 7l10 10M17 7L7 17" />
             </svg>
@@ -224,7 +219,7 @@ export default function Assistant() {
           ))}
 
           {typing ? (
-            <p className="as__msg as__msg--bot as__typing" aria-label="Escribiendo">
+            <p className="as__msg as__msg--bot as__typing" aria-label={t.typingAria}>
               <span /><span /><span />
             </p>
           ) : null}
@@ -250,10 +245,10 @@ export default function Assistant() {
             className="as__input"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder="Escribe tu pregunta…"
-            aria-label="Escribe tu pregunta"
+            placeholder={t.placeholder}
+            aria-label={t.inputAria}
           />
-          <button className="as__send" type="submit" aria-label="Enviar">
+          <button className="as__send" type="submit" aria-label={t.sendAria}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12h13M12 5.5l6.5 6.5-6.5 6.5" />
             </svg>

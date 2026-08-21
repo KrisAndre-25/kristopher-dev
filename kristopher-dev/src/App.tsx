@@ -1,165 +1,177 @@
-import CyberBackground from "./components/CyberBackground";
-import Cursor from "./components/Cursor";
-import Progress from "./components/Progress";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Section from "./components/Section";
-import Bento from "./components/Bento";
-import Project from "./components/Project";
-import CodeShowcase from "./components/CodeShowcase";
-import Carousel from "./components/Carousel";
-import Experience from "./components/Experience";
-import Certifications from "./components/Certifications";
-import StackGrid from "./components/StackGrid";
-import Contact from "./components/Contact";
-import Assistant from "./components/Assistant";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Mail, Download } from "lucide-react";
+import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
 import { A11yProvider } from "./hooks/useA11y";
-import {
-  FxLaser,
-  FxClouds,
-  FxGlass,
-  FxGrid,
-  FxMagnify,
-  FxRipple,
-} from "./components/Fx";
-import { profile, whatsappUrl } from "./data/content";
-import "./App.css";
+import { NavbarDemo } from "./components/demos/navbar-demo";
+import { StickyBannerDemo } from "./components/demos/sticky-banner-demo";
+import { HeroDemo } from "./components/demos/hero-demo";
+import { ScrollVelocityDemo } from "./components/demos/scroll-velocity-demo";
+import { HeroScrollDemo } from "./components/demos/hero-scroll-demo";
+import { AboutDemo } from "./components/demos/about-demo";
+import { SkillsDemo } from "./components/demos/skills-demo";
+import { FeaturesSectionDemo } from "./components/demos/features-section-demo";
+import { BentoGridThirdDemo } from "./components/demos/bento-grid-demo";
+import { ProjectCardsDemo } from "./components/demos/project-cards-demo";
+import { CertificationsDemo } from "./components/demos/certifications-demo";
+import { TimelineDemo } from "./components/sections/timeline-section";
+import { GlobeDemo } from "./components/demos/globe-demo";
+import { CardDemo } from "./components/demos/card-demo";
+import { ContactFormDemo } from "./components/demos/contact-form-demo";
+import { ContactExtrasDemo } from "./components/demos/contact-extras-demo";
+import { ColourfulText } from "./components/ui/colourful-text";
+import { LoaderComponent } from "./components/ui/loader";
+import { DevConsoleDemo } from "./components/demos/dev-console-demo";
+import { useContent } from "./data/useContent";
+import { useUiStrings } from "./data/ui-strings";
+import { useLanguage } from "./hooks/useLanguage";
+
+const CinematicFooter = lazy(() =>
+  import("./components/ui/motion-footer").then((m) => ({
+    default: m.CinematicFooter,
+  })),
+);
+
+function SectionHeader({
+  eyebrow,
+  title,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+}) {
+  return (
+    <div className="mx-auto mb-8 max-w-2xl px-4 text-center">
+      <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-400">
+        {eyebrow}
+      </p>
+      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+        {title}
+      </h2>
+    </div>
+  );
+}
 
 export default function App() {
+  const { profile, mailtoUrl } = useContent();
+  const t = useUiStrings();
+  const { language } = useLanguage();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const footerLinks = [
+    { label: language === "en" ? "Email" : "Correo", href: mailtoUrl, icon: Mail },
+    { label: "LinkedIn", href: profile.linkedin, icon: IconBrandLinkedin, external: true },
+    { label: "GitHub", href: profile.github, icon: IconBrandGithub, external: true },
+    { label: t.contacto.card.descargarCv, href: profile.cv, icon: Download, download: profile.cvName },
+  ];
+
   return (
     <A11yProvider>
-      <a className="skip-link" href="#contenido">
-        Saltar al contenido
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="loader"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[500] flex items-center justify-center bg-neutral-950"
+          >
+            <LoaderComponent />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <a
+        className="fixed left-1/2 top-[-100px] z-[300] -translate-x-1/2 rounded-full border border-sky-400/40 bg-neutral-950 px-5 py-2.5 font-mono text-sm text-white transition-[top] duration-300 focus:top-3"
+        href="#contenido"
+      >
+        {language === "en" ? "Skip to content" : "Saltar al contenido"}
       </a>
 
-      <CyberBackground />
-      <Cursor />
-      <Progress />
-      <Navbar />
+      <div className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+        <StickyBannerDemo />
+        <NavbarDemo />
 
-      <main id="contenido">
-        <FxLaser>
-          <Hero />
-        </FxLaser>
+        <main id="contenido">
+          <section id="inicio" className="w-full">
+            <HeroDemo />
+          </section>
 
-        <Section
-          id="perfil"
-          index="01"
-          eyebrow="Perfil"
-          title="Un panorama rápido"
-          lede="Lo esencial de mi formación, mis números y en qué estoy ahora."
-        >
-          <FxClouds>
-            <Bento />
-          </FxClouds>
-        </Section>
+          <ScrollVelocityDemo />
 
-        <Section
-          id="proyecto"
-          index="02"
-          eyebrow="Proyecto destacado"
-          title="StudyMatch, de la idea a la infraestructura"
-          lede="El proyecto donde tomé decisiones en todas las capas: interfaz, API, datos, infraestructura y pruebas."
-        >
-          <FxGlass>
-            <Project />
-          </FxGlass>
-        </Section>
+          <section id="tecnologias" className="px-4 py-8">
+            <HeroScrollDemo />
+          </section>
 
-        <Section
-          id="codigo"
-          index="03"
-          eyebrow="Código"
-          title="Cómo escribo, no solo qué uso"
-          lede="Tres fragmentos reales de mi trabajo. Una lista de tecnologías dice poco; el código dice cómo pienso."
-        >
-          <FxGrid>
-            <CodeShowcase />
-          </FxGrid>
-        </Section>
+          <section id="perfil" className="px-4 py-8">
+            <AboutDemo />
+          </section>
 
-        <Section
-          id="hitos"
-          index="04"
-          eyebrow="Recorrido"
-          title="Hitos y certificaciones"
-          lede="Un repaso navegable por lo que he construido y estudiado."
-        >
-          <Carousel />
-        </Section>
+          <section id="habilidades" className="py-8">
+            <SkillsDemo />
+          </section>
 
-        <Section
-          id="experiencia"
-          index="05"
-          eyebrow="Experiencia"
-          title="Dónde trabajé y qué dejé funcionando"
-        >
-          <Experience />
-        </Section>
+          <section id="panorama" className="py-8">
+            <FeaturesSectionDemo />
+            <div className="mt-10">
+              <BentoGridThirdDemo />
+            </div>
+          </section>
 
-        <Section
-          id="certificaciones"
-          index="06"
-          eyebrow="Certificaciones"
-          title="Formación continua"
-          lede="Cursos y eventos que complementan mi formación técnica."
-        >
-          <Certifications />
-        </Section>
+          <section id="proyectos" className="px-4 py-8">
+            <SectionHeader eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
+            <ProjectCardsDemo />
+          </section>
 
-        <Section
-          id="stack"
-          index="07"
-          eyebrow="Stack técnico"
-          title="Con qué trabajo, y qué tan a fondo"
-          lede="Sin inflar la lista: cada tecnología dice dónde la apliqué de verdad."
-        >
-          <FxMagnify>
-            <StackGrid />
-          </FxMagnify>
-        </Section>
+          <section id="certificaciones" className="px-4 py-8">
+            <CertificationsDemo />
+          </section>
 
-        <Section
-          id="contacto"
-          index="08"
-          eyebrow="Contacto"
-          title="Hablemos"
-          lede="Disponible para incorporarme de inmediato en Santiago o en remoto."
-        >
-          <FxRipple>
-            <Contact />
-          </FxRipple>
-        </Section>
-      </main>
+          <section id="trayectoria" className="px-4 py-8">
+            <SectionHeader eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
+            <TimelineDemo />
+          </section>
 
-      <footer className="ft">
-        <div className="shell ft__inner">
-          <div className="ft__col">
-            <p className="mono">
-              © {new Date().getFullYear()} {profile.fullName}
-            </p>
-            <p className="mono ft__built">
-              Construido con <span>React</span> · <span>TypeScript</span> ·{" "}
-              <span>CSS puro</span>
-            </p>
-          </div>
+          <section id="disponibilidad" className="py-8">
+            <GlobeDemo />
+          </section>
 
-          <nav className="ft__links" aria-label="Enlaces de contacto">
-            <a href={`mailto:${profile.email}`}>Correo</a>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer">
-              WhatsApp
-            </a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-            <a href={profile.cv} download={profile.cvName}>
-              Descargar CV
-            </a>
-          </nav>
-        </div>
-      </footer>
+          <section id="contacto" className="px-4 py-10">
+            <SectionHeader
+              eyebrow={t.contacto.eyebrow}
+              title={
+                <>
+                  {t.contacto.titlePrefix}
+                  <ColourfulText text={t.contacto.highlight} />
+                </>
+              }
+            />
+            <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-8 lg:grid-cols-2">
+              <div className="flex flex-col items-center">
+                <CardDemo />
+                <ContactExtrasDemo />
+              </div>
+              <div className="flex justify-center">
+                <ContactFormDemo />
+              </div>
+            </div>
+          </section>
+        </main>
 
-      <Assistant />
+        <Suspense fallback={<div className="h-64 border-t border-white/10" />}>
+          <CinematicFooter
+            title="KRISTOPHER ASTUDILLO"
+            tagline={profile.availability}
+            links={footerLinks}
+            copyright={`© ${new Date().getFullYear()} ${profile.fullName} · ${t.footer.builtWith}`}
+          />
+        </Suspense>
+      </div>
+
+      <DevConsoleDemo />
     </A11yProvider>
   );
 }
