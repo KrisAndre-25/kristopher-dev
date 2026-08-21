@@ -14,6 +14,7 @@ export const profile = {
   phoneHref: "+56950902425",
   linkedin:
     "https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/",
+  github: "https://github.com/KrisAndre-25",
   photo: "kristopher.jpg",
   cv: "cv/CV-Kristopher-Astudillo.pdf",
   cvName: "CV-Kristopher-Astudillo.pdf",
@@ -90,7 +91,7 @@ export const bento: BentoCard[] = [
     kind: "text",
     eyebrow: "Quién soy",
     title: "Full Stack con cabeza de QA",
-    body: "Titulado como Analista Programador — Desarrollador Full Stack en DuocUC. Trabajo el frontend en React y TypeScript, y el backend en Java con Spring Boot. Mi práctica profesional fue en automatización de pruebas, y eso cambió la forma en que escribo código: pienso primero en los casos borde.",
+    body: "Combino el desarrollo Full Stack con una rigurosa mentalidad orientada al Aseguramiento de Calidad (QA). Mi enfoque no solo busca escribir código funcional con React, Java y Spring Boot, sino también anticipar escenarios de fallo, garantizar pruebas sólidas y optimizar el rendimiento antes de cada despliegue.",
   },
   {
     id: "cobertura",
@@ -219,6 +220,8 @@ export const project = {
     "Un backend bien delimitado ahorra trabajo en el frontend. Las decisiones de la API se sienten en cada pantalla.",
     "Escribir las pruebas mientras construyes es más barato que escribirlas después, y encuentra errores de diseño temprano.",
   ],
+  howIBuiltIt:
+    "Construí el frontend completo en React y TypeScript sobre Vite, consumiendo una API REST en Java con Spring Boot (autenticación JWT) que expone más de 13 endpoints. El modelo de datos vive en PostgreSQL, diseñado específicamente para el emparejamiento entre estudiantes. La infraestructura quedó definida como código con Terraform sobre un laboratorio de AWS Academy, con Docker para los contenedores, y validé los flujos críticos con una suite E2E en Playwright bajo un enfoque BDD.",
 };
 
 /* ── Carrusel ─────────────────────────────────────────── */
@@ -302,6 +305,8 @@ export const experience = [
       { label: "Casos de prueba construidos", value: 30, suffix: "+" },
       { label: "Pruebas inestables eliminadas", value: 15, suffix: "+" },
     ],
+    howIBuiltIt:
+      "Levanté la suite E2E completa con Playwright y JavaScript, cubriendo autenticación, pacientes, reportes y notificaciones. Las primeras pruebas eran inestables, así que reemplacé esperas fijas por aserciones dinámicas y mocking de datos, eliminando más de 15 flaky tests. Trabajé bajo Git Flow y dejé documentada la arquitectura de testing para el traspaso del repositorio.",
   },
 ];
 
@@ -483,7 +488,7 @@ export const intents: Intent[] = [
     keys: ["css", "html", "estilos", "diseño", "responsive", "grid", "flexbox", "tailwind", "bootstrap", "sass"],
     question: "¿Cómo trabaja los estilos?",
     answer:
-      "CSS puro, sin frameworks. Grid, Flexbox y diseño responsive con un sistema de tokens propio. Este portafolio es la prueba: no usa Tailwind ni Bootstrap, todo el diseño está escrito a mano.",
+      "Domina tanto CSS puro con Grid y Flexbox como Tailwind CSS. Este portafolio combina ambos: componentes de interfaz animados con Tailwind y Framer Motion, sobre una base de accesibilidad escrita a mano.",
   },
 
   /* ── Testing ────────────────────────────────────────── */
