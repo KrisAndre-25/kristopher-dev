@@ -11,7 +11,7 @@
 **Portafolio profesional con foco en Frontend y QA Automation.**
 Interfaces rápidas, accesibles y con una experiencia de usuario cuidada.
 
-[**🚀 Ver sitio en vivo**](https://kristopher-astudillo.portfolio.netlify.app) · [Reportar un bug](https://github.com/KrisAndre-25/kristopher-dev/issues)
+[**🚀 Ver sitio en vivo**](https://kristopher-astudillo-portfolio.netlify.app) · [Reportar un bug](https://github.com/KrisAndre-25/kristopher-dev/issues)
 
 </div>
 
