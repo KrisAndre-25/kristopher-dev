@@ -53,7 +53,17 @@ export function NavbarDemo() {
   return (
     <Navbar className="top-12">
       <NavBody>
-        <NavbarLogo>{profile.name}</NavbarLogo>
+        <NavbarLogo>
+          <img
+            src="/favicon-16x16.png"
+            alt=""
+            width={20}
+            height={20}
+            className="h-5 w-5 shrink-0"
+            aria-hidden="true"
+          />
+          {profile.name}
+        </NavbarLogo>
 
         <FloatingDock
           items={items}
@@ -77,7 +87,17 @@ export function NavbarDemo() {
 
       <MobileNav>
         <MobileNavHeader>
-          <NavbarLogo>{profile.name}</NavbarLogo>
+          <NavbarLogo>
+          <img
+            src="/favicon-16x16.png"
+            alt=""
+            width={20}
+            height={20}
+            className="h-5 w-5 shrink-0"
+            aria-hidden="true"
+          />
+          {profile.name}
+        </NavbarLogo>
           <MobileNavToggle isOpen={isOpen} onClick={() => setIsOpen((v) => !v)} />
         </MobileNavHeader>
         <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
