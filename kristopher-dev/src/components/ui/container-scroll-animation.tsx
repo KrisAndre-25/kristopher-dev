@@ -25,12 +25,12 @@ export const ContainerScroll = ({
 
   const rotate = useTransform(scrollYProgress, [0, 1], [18, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, isMobile ? -12 : -60]);
 
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center p-2 md:p-14"
+      className="relative flex items-center justify-center p-2 pt-10 md:p-14"
     >
       <div className="relative w-full py-6 md:py-16" style={{ perspective: 1000 }}>
         <Header translate={translate} titleComponent={titleComponent} />
