@@ -7,7 +7,7 @@
 ![Netlify](https://img.shields.io/badge/Netlify-Deployed-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge)
 
-# 👋 Hola, soy Kristopher Astudillo — Developer & QA Automation
+# 👋 Hola, soy Kristopher Astudillo — Full Stack Developer & QA Automation
 
 *"El mejor código no es el más ingenioso, es el que otra persona puede leer, mantener y confiar a las 3 AM de un incidente."*
 
@@ -19,11 +19,13 @@
 
 ## 🚀 Sobre mí & mi pasión
 
-Soy Analista Programador — Desarrollador Full Stack titulado en **DuocUC**, y actualmente continúo
-Ingeniería en Informática, mención Desarrollo de Software. Vengo del **QA automatizado**: antes de
-escribir la primera línea de una feature, ya estoy pensando en qué puede romperse. Esa base marca
-cómo construyo software — con foco en Frontend (React + TypeScript), pero con la mentalidad de quien
-pasó meses escribiendo suites E2E y sabe exactamente dónde se esconden los bugs.
+Soy Analista Programador — Desarrollador **Full Stack** titulado en **DuocUC**, y actualmente continúo
+Ingeniería en Informática, mención Desarrollo de Software. Trabajo tanto frontend como backend, y aunque
+mi práctica profesional fue en **QA automatizado** y esa base sigue marcando cómo pienso el software
+(antes de escribir una feature, ya estoy pensando en qué puede romperse), donde más disfruto es
+**construyendo**: diseñar la arquitectura de un frontend, conectarlo a una API real y ver un producto
+completo cobrar vida. El QA es una herramienta que domino y valoro — no es lo que más me apasiona, pero
+es lo que hace que lo que construyo no se rompa en producción.
 
 **Por qué amo este rubro:** la satisfacción de tomar un problema real — una interfaz confusa, un flujo
 que falla en un caso límite nadie probó, un pipeline de pruebas inestable — y resolverlo con código
