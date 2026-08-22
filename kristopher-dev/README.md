@@ -1,141 +1,97 @@
-# kristopher-dev
+<div align="center">
 
-Portafolio personal de **Kristopher Astudillo** — Desarrollador Full Stack.
+# Kristopher Astudillo — Portfolio Web & QA Automation
 
-Estética cyber/tech sobre fondo negro, con azul eléctrico como único acento.
-React + TypeScript + CSS puro, sin frameworks de estilos.
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-Deployed-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+**Portafolio profesional con foco en Frontend y QA Automation.**
+Interfaces rápidas, accesibles y con una experiencia de usuario cuidada.
+
+[**🚀 Ver sitio en vivo**](https://kristopher-astudillo.portfolio.netlify.app) · [Reportar un bug](https://github.com/KrisAndre-25/kristopher-dev/issues)
+
+</div>
 
 ---
 
-## Correr en local
+## 📖 Descripción
+
+Portafolio personal construido como una single-page application, pensado para
+comunicar en pocos segundos quién soy, qué construyo y cómo pienso el software.
+Viene de QA automatizado, así que el sitio mismo funciona como muestra de ese
+cuidado: casos límite considerados, accesibilidad AA, rendimiento medido y
+código mantenible.
+
+**Arquitectura de componentes:** todo el contenido editable vive centralizado
+en `src/data/content.ts` (con su contraparte en inglés, `content.en.ts`), separado
+por completo de la capa visual. Los componentes en `src/components/` son
+presentacionales y reciben ese contenido como props, organizados en:
+
+- `src/components/ui/` — librería de componentes reutilizables estilo Aceternity UI (cards, timeline, cursor magnético, efectos de scroll).
+- `src/components/sections/` — ensamblaje de esas piezas en las secciones del sitio (Hero, Proyectos, Timeline, Contacto).
+- `src/data/` — contenido bilingüe, snippets de código y strings de UI, desacoplados de la lógica de render.
+
+## 🛠️ Tecnologías
+
+| Core | UI & Componentes | Herramientas |
+|---|---|---|
+| React 18 | Tailwind CSS + `tailwindcss-animate` | Vite (bundler) |
+| TypeScript | Framer Motion / Motion | ESLint / `tsc` |
+| React Three Fiber + Three.js | Tabler Icons & Lucide Icons | Netlify (CI/CD) |
+| — | GSAP | Git Flow + Conventional Commits |
+
+## ✨ Funcionalidades destacadas
+
+- 🔍 **Modal interactivo "Cómo lo hice"** — cada proyecto abre una vista con arquitectura, desafíos técnicos y aprendizajes reales, no solo capturas de pantalla.
+- 📅 **Timeline responsivo** — recorrido de experiencia laboral y stack técnico que se adapta de escritorio a móvil sin perder legibilidad.
+- 📄 **Descarga directa de CV** — botón en el Hero y en Contacto que descarga el PDF actualizado sin salir del sitio.
+- 🌐 **Contenido bilingüe (ES/EN)** — sistema de i18n propio sobre un único archivo de contenido por idioma.
+- ♿ **Accesibilidad cuidada** — contraste AA, foco visible, navegación por teclado y soporte de `prefers-reduced-motion` en todas las animaciones.
+
+## 🚀 Guía de ejecución local
+
+**Requisitos:** Node.js 20+ y npm.
 
 ```bash
+# 1. Clonar el repositorio
+git clone https://github.com/KrisAndre-25/kristopher-dev.git
+cd kristopher-dev/kristopher-dev
+
+# 2. Instalar dependencias
 npm install
+
+# 3. Levantar el entorno de desarrollo
 npm run dev
 ```
 
-## Compilar
+El sitio queda disponible en `http://localhost:5173`.
 
 ```bash
-npm run build     # genera dist/
-npm run preview   # sirve dist/ para revisar
+# Compilar para producción
+npm run build      # genera dist/
+npm run preview    # sirve dist/ localmente para revisar el build
 ```
 
----
+## 📬 Contacto
 
-## Dónde editar cada cosa
+<div align="center">
 
-**Todo el contenido está en un solo archivo: `src/data/content.ts`.**
-No necesitas tocar los componentes para actualizar el sitio.
+**Kristopher Astudillo Durán**
+Frontend Developer & QA Automation
 
-| Qué quieres cambiar | Dónde |
-|---|---|
-| Nombre, correo, teléfono, LinkedIn, intro | `profile` |
-| Métricas del hero | `heroStats` |
-| Tarjetas del Bento Grid | `bento` |
-| Proyecto StudyMatch (arquitectura, desafíos, aprendizajes) | `project` |
-| Diapositivas del carrusel | `slides` |
-| Fragmentos de código | `src/data/code.ts` |
-| Experiencia laboral | `experience` |
-| Stack técnico y niveles | `stackGroups` |
-| Respuestas del asistente | `intents` |
-| Mensaje de WhatsApp, asunto y cuerpo del correo | `whatsappMessage`, `mailSubject`, `mailBody` |
-| Velocidad de la figura caminante | `useWalkCycle(260)` en `WalkingFigure.tsx` (px de scroll por zancada) |
-| Mensaje de WhatsApp, asunto del correo | `whatsappMessage`, `mailSubject`, `mailBody` |
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/)
+[![GitHub](https://img.shields.io/badge/GitHub-KrisAndre--25-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KrisAndre-25)
+[![Email](https://img.shields.io/badge/Email-Escribir-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:kristopherastudillo@gmail.com)
 
-**Colores y tipografía:** `src/styles/tokens.css`.
-Cambia `--blue` y todo el sitio se recolorea.
-
-**Tu foto:** reemplaza `public/kristopher.jpg` (cuadrada, idealmente 1000×1000).
-
-**Tu CV:** reemplaza `public/cv/CV-Kristopher-Astudillo.pdf`. Si cambias el nombre
-del archivo, actualiza `profile.cv` y `profile.cvName` en `content.ts`.
-
-**Tu CV:** reemplaza `public/cv/CV-Kristopher-Astudillo.pdf`. El botón del hero y el
-de la sección de contacto lo descargan directamente.
-
-**Capturas de pantalla:** déjalas en `public/capturas/` y enlázalas desde `slides`
-con el campo `image`. Lee `public/capturas/LEEME.md` para el detalle.
+</div>
 
 ---
 
-## El acompañante caminante (`WalkingFigure.tsx`)
+<div align="center">
 
-Personaje geométrico en SVG puro (sin modelos 3D, sin librerías externas),
-fijo en el borde izquierdo de la pantalla desde el Hero. Dos mecánicas
-independientes, combinadas:
+Distribuido bajo licencia MIT. Ver [`LICENSE`](./LICENSE) para más detalles.
 
-1. **Posición vertical** — sube y baja según el progreso total de scroll de
-   toda la página (0% arriba, 100% abajo), acotado para no tapar la navbar
-   ni cortarse en el borde inferior (`TOP_MARGIN` / `BOTTOM_MARGIN` en el
-   propio componente).
-2. **Ciclo de marcha** — cada articulación (muslo, rodilla, brazo) es una
-   rotación calculada con funciones seno desfasadas, no un frame pre-dibujado.
-   La fase avanza según el **delta de scroll acumulado**, no por tiempo ni
-   por el mouse: si el usuario se detiene, la figura se detiene a mitad de
-   zancada; si sube, camina hacia atrás.
-
-Se congela en una pose de reposo con `prefers-reduced-motion`, y se oculta
-por completo bajo los 880px de ancho (`WalkingFigure.css`) — a ese tamaño de
-pantalla el gutter del layout es demasiado angosto para un elemento fijo al
-borde sin taparle contenido a nadie.
-
-**Brazos con codo articulado.** El brazo tiene dos segmentos (hombro→codo,
-codo→mano), igual que la pierna (muslo→rodilla). Sin el codo, un brazo recto
-balanceándose hacia adelante deja la mano justo a la altura de la cadera —
-se leía como "manos juntas sobre la pelvis" en vez de caminar. El codo
-siempre algo flectado (`elbowL`/`elbowR` en `gait()`) evita ese solape en
-cualquier punto de la zancada (margen mínimo verificado: 3.3px en toda la
-zancada completa).
-
-**Geometría facetada tipo cristal.** Cada segmento (muslo, antebrazo, torso,
-cabeza) es un par o trío de triángulos con tonos distintos (`.facet--hi`,
-`.facet--mid`, `.facet--lo`) en vez de un bloque plano de un solo color —
-se lee como un corte de gema, no como un stick-figure. Los pivotes de
-articulación (`transform-origin`) no cambiaron respecto a la versión
-anterior, así que toda la mecánica de marcha sigue intacta.
-
-Se mantiene fija al borde izquierdo (sin el cruce horizontal que se probó
-y se descartó por preferencia de diseño).
-
-## Decisiones técnicas
-
-**Sin Spline ni modelos 3D.** Un embed pesa entre 2 y 5 MB y bloquea el hilo
-principal, lo que degrada el LCP en móvil. La profundidad se logra con
-`perspective`, `translateZ` y capas de paralaje en CSS: 0 KB extra.
-
-**El asistente usa una base de conocimiento local.** Un sitio estático no puede
-guardar una clave de API sin exponerla en el bundle. Las respuestas viven en
-`intents` dentro de `content.ts`. Si más adelante montas un backend, reemplaza el
-cuerpo de la función `resolve()` en `src/components/Assistant.tsx` por una llamada
-a tu endpoint — está marcado con un comentario.
-
-**El repositorio de StudyMatch no se enlaza** porque es privado. En su lugar el
-sitio muestra arquitectura, desafíos técnicos y aprendizajes.
-
-**Infraestructura descrita con precisión:** Terraform como Infrastructure as Code
-sobre un laboratorio académico de AWS Academy (DuocUC). No se afirma que el
-proyecto siga desplegado, porque el laboratorio expira.
-
----
-
-## Rendimiento y accesibilidad
-
-- Bundle: ~58 KB JS + ~8 KB CSS (gzip)
-- Sin overflow horizontal en 360, 390, 834, 1024 y 1440 px
-- Contraste AA en todos los textos (mínimo 5.1:1 sobre negro)
-- Un solo `<h1>`, jerarquía de encabezados correcta
-- `prefers-reduced-motion` desactiva animaciones, paralaje y cursor personalizado
-- El cursor magnético solo se activa con puntero fino (no en táctiles)
-- Carrusel navegable con teclado (← →), con pausa al enfocar y swipe en móvil
-- Foco visible en todos los elementos interactivos
-
----
-
-## Desplegar
-
-`vite.config.ts` usa `base: './'`, así que funciona en cualquier host estático.
-
-**Vercel (recomendado):** importa el repositorio y detecta Vite automáticamente.
-
-**GitHub Pages:** publica la carpeta `dist/`.
+</div>
