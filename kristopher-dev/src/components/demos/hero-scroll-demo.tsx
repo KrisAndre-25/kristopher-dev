@@ -12,14 +12,15 @@ export function HeroScrollDemo() {
     <div className="flex flex-col overflow-hidden">
       <ContainerScroll
         titleComponent={
-          <>
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-400">
+          <div className="mx-auto mb-4 max-w-3xl px-4 text-center">
+            <h2 className="text-4xl font-extrabold uppercase tracking-tight text-white md:text-5xl lg:text-6xl">
+              <span className="font-mono text-teal-400">01. </span>
               {t.stackSection.eyebrow}
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-              {t.stackSection.title}
             </h2>
-          </>
+            <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-sky-300 sm:text-lg">
+              {t.stackSection.title}
+            </p>
+          </div>
         }
       >
         <div className="grid h-full w-full grid-cols-3 gap-3 overflow-y-auto p-4 sm:grid-cols-4 md:grid-cols-5 md:gap-4 md:p-6">

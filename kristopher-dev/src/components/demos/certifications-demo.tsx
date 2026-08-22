@@ -8,7 +8,7 @@ import { useOutsideClick } from "@/hooks/use-outside-click";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { RetroGrid } from "@/components/ui/retro-grid";
-import Text3DFlip from "@/components/ui/text-3d-flip";
+import { SectionHeading } from "@/components/SectionHeading";
 
 export function CertificationsDemo() {
   const { certifications } = useContent();
@@ -19,20 +19,7 @@ export function CertificationsDemo() {
     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950 py-12">
       <RetroGrid />
 
-      <div className="relative z-10 mb-10 px-4 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-400">
-          {t.certificaciones.eyebrow}
-        </p>
-        <Text3DFlip
-          key={t.certificaciones.title}
-          className="mt-3 text-3xl font-semibold text-white sm:text-4xl"
-          rotateDirection="top"
-          staggerDuration={0.02}
-          staggerFrom="first"
-        >
-          {t.certificaciones.title}
-        </Text3DFlip>
-      </div>
+      <SectionHeading number="05" eyebrow={t.certificaciones.eyebrow} className="relative z-10 px-4" />
 
       <div className="relative z-10 mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 sm:grid-cols-2 lg:grid-cols-3">
         {certifications.map((cert) => (

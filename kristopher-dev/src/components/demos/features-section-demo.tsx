@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { LineShadowText } from "@/components/ui/line-shadow-text";
+import { SectionHeading } from "@/components/SectionHeading";
 import { techIcon } from "@/lib/tech-icons";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
@@ -40,11 +40,12 @@ export function FeaturesSectionDemo() {
   return (
     <div className="relative z-20 mx-auto max-w-6xl">
       <div className="px-4">
-        <h3 className="mx-auto max-w-3xl text-center text-3xl font-medium tracking-tight text-white sm:text-4xl">
-          <LineShadowText as="span">{t.panorama.title}</LineShadowText>
-          {t.panorama.titleRest}
-        </h3>
-        <p className="mx-auto my-4 max-w-2xl text-center text-sm text-neutral-400 sm:text-base">
+        <SectionHeading
+          number="03"
+          eyebrow={t.nav.panorama}
+          title={`${t.panorama.title}${t.panorama.titleRest}`}
+        />
+        <p className="mx-auto -mt-6 mb-4 max-w-2xl text-center text-sm text-neutral-400 sm:text-base">
           {t.panorama.subtitle}
         </p>
       </div>

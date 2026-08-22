@@ -20,6 +20,7 @@ import { CardDemo } from "./components/demos/card-demo";
 import { ContactFormDemo } from "./components/demos/contact-form-demo";
 import { ContactExtrasDemo } from "./components/demos/contact-extras-demo";
 import { ColourfulText } from "./components/ui/colourful-text";
+import { SectionHeading } from "./components/SectionHeading";
 import { LoaderComponent } from "./components/ui/loader";
 import { DevConsoleDemo } from "./components/demos/dev-console-demo";
 import { useContent } from "./data/useContent";
@@ -31,25 +32,6 @@ const CinematicFooter = lazy(() =>
     default: m.CinematicFooter,
   })),
 );
-
-function SectionHeader({
-  eyebrow,
-  title,
-}: {
-  eyebrow: string;
-  title: React.ReactNode;
-}) {
-  return (
-    <div className="mx-auto mb-8 max-w-2xl px-4 text-center">
-      <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-400">
-        {eyebrow}
-      </p>
-      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-        {title}
-      </h2>
-    </div>
-  );
-}
 
 export default function App() {
   const { profile, mailtoUrl } = useContent();
@@ -102,45 +84,46 @@ export default function App() {
 
           <ScrollVelocityDemo />
 
-          <section id="tecnologias" className="px-4 py-8">
+          <section id="tecnologias" className="px-4 py-20 sm:py-24">
             <HeroScrollDemo />
           </section>
 
-          <section id="perfil" className="px-4 py-8">
+          <section id="perfil" className="px-4 py-20 sm:py-24">
             <AboutDemo />
           </section>
 
-          <section id="habilidades" className="py-8">
+          <section id="habilidades" className="py-20 sm:py-24">
             <SkillsDemo />
           </section>
 
-          <section id="panorama" className="py-8">
+          <section id="panorama" className="py-20 sm:py-24">
             <FeaturesSectionDemo />
             <div className="mt-10">
               <BentoGridThirdDemo />
             </div>
           </section>
 
-          <section id="proyectos" className="px-4 py-8">
-            <SectionHeader eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
+          <section id="proyectos" className="px-4 py-20 sm:py-24">
+            <SectionHeading number="04" eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
             <ProjectCardsDemo />
           </section>
 
-          <section id="certificaciones" className="px-4 py-8">
+          <section id="certificaciones" className="px-4 py-20 sm:py-24">
             <CertificationsDemo />
           </section>
 
-          <section id="trayectoria" className="px-4 py-8">
-            <SectionHeader eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
+          <section id="trayectoria" className="px-4 py-20 sm:py-24">
+            <SectionHeading number="06" eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
             <TimelineDemo />
           </section>
 
-          <section id="disponibilidad" className="py-8">
+          <section id="disponibilidad" className="py-20 sm:py-24">
             <GlobeDemo />
           </section>
 
-          <section id="contacto" className="px-4 py-10">
-            <SectionHeader
+          <section id="contacto" className="px-4 py-20 sm:py-24">
+            <SectionHeading
+              number="08"
               eyebrow={t.contacto.eyebrow}
               title={
                 <>

@@ -1,5 +1,6 @@
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useUiStrings } from "@/data/ui-strings";
 
 export function SkillsDemo() {
@@ -11,12 +12,7 @@ export function SkillsDemo() {
   return (
     <WavyBackground waveOpacity={0.3} blur={12}>
       <div className="px-4 pt-10 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-400">
-          {t.habilidades.eyebrow}
-        </p>
-        <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-          {t.habilidades.title}
-        </h2>
+        <SectionHeading number="02" eyebrow={t.habilidades.eyebrow} title={t.habilidades.title} />
         <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-300 sm:text-base">
           {t.habilidades.caption}
         </p>
