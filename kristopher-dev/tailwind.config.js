@@ -20,6 +20,7 @@ export default {
         "spin-slow": "spin 20s linear infinite",
         "retro-grid": "retro-grid 25s linear infinite",
         "canvas-text-flow": "canvas-text-flow var(--ctf-duration,10s) linear infinite",
+        "border-beam": "border-beam calc(var(--duration,6)*1s) infinite linear",
       },
       keyframes: {
         marquee: {
@@ -37,6 +38,9 @@ export default {
         "canvas-text-flow": {
           from: { backgroundPosition: "0 0" },
           to: { backgroundPosition: "var(--ctf-travel,240px) 0" },
+        },
+        "border-beam": {
+          "100%": { offsetDistance: "100%" },
         },
       },
     },

@@ -7,26 +7,55 @@ import { NavbarDemo } from "./components/demos/navbar-demo";
 import { StickyBannerDemo } from "./components/demos/sticky-banner-demo";
 import { HeroDemo } from "./components/demos/hero-demo";
 import { ScrollVelocityDemo } from "./components/demos/scroll-velocity-demo";
-import { HeroScrollDemo } from "./components/demos/hero-scroll-demo";
-import { AboutDemo } from "./components/demos/about-demo";
-import { SkillsDemo } from "./components/demos/skills-demo";
-import { FeaturesSectionDemo } from "./components/demos/features-section-demo";
-import { BentoGridThirdDemo } from "./components/demos/bento-grid-demo";
-import { ProjectCardsDemo } from "./components/demos/project-cards-demo";
-import { CertificationsDemo } from "./components/demos/certifications-demo";
-import { TimelineDemo } from "./components/sections/timeline-section";
-import { GlobeDemo } from "./components/demos/globe-demo";
-import { CardDemo } from "./components/demos/card-demo";
-import { ContactFormDemo } from "./components/demos/contact-form-demo";
-import { ContactExtrasDemo } from "./components/demos/contact-extras-demo";
 import { ColourfulText } from "./components/ui/colourful-text";
 import { SectionHeading } from "./components/SectionHeading";
 import { LoaderComponent } from "./components/ui/loader";
-import { DevConsoleDemo } from "./components/demos/dev-console-demo";
 import { useContent } from "./data/useContent";
 import { useUiStrings } from "./data/ui-strings";
 import { useLanguage } from "./hooks/useLanguage";
 
+// Todo lo que vive debajo del hero se carga bajo demanda para aligerar
+// el bundle inicial (three.js/cobe, gsap y frameworks de animacion pesados
+// quedan fuera del chunk critico de arranque).
+const HeroScrollDemo = lazy(() =>
+  import("./components/demos/hero-scroll-demo").then((m) => ({ default: m.HeroScrollDemo })),
+);
+const AboutDemo = lazy(() =>
+  import("./components/demos/about-demo").then((m) => ({ default: m.AboutDemo })),
+);
+const SkillsDemo = lazy(() =>
+  import("./components/demos/skills-demo").then((m) => ({ default: m.SkillsDemo })),
+);
+const FeaturesSectionDemo = lazy(() =>
+  import("./components/demos/features-section-demo").then((m) => ({ default: m.FeaturesSectionDemo })),
+);
+const BentoGridThirdDemo = lazy(() =>
+  import("./components/demos/bento-grid-demo").then((m) => ({ default: m.BentoGridThirdDemo })),
+);
+const ProjectCardsDemo = lazy(() =>
+  import("./components/demos/project-cards-demo").then((m) => ({ default: m.ProjectCardsDemo })),
+);
+const CertificationsDemo = lazy(() =>
+  import("./components/demos/certifications-demo").then((m) => ({ default: m.CertificationsDemo })),
+);
+const TimelineDemo = lazy(() =>
+  import("./components/sections/timeline-section").then((m) => ({ default: m.TimelineDemo })),
+);
+const GlobeDemo = lazy(() =>
+  import("./components/demos/globe-demo").then((m) => ({ default: m.GlobeDemo })),
+);
+const CardDemo = lazy(() =>
+  import("./components/demos/card-demo").then((m) => ({ default: m.CardDemo })),
+);
+const ContactFormDemo = lazy(() =>
+  import("./components/demos/contact-form-demo").then((m) => ({ default: m.ContactFormDemo })),
+);
+const ContactExtrasDemo = lazy(() =>
+  import("./components/demos/contact-extras-demo").then((m) => ({ default: m.ContactExtrasDemo })),
+);
+const DevConsoleDemo = lazy(() =>
+  import("./components/demos/dev-console-demo").then((m) => ({ default: m.DevConsoleDemo })),
+);
 const CinematicFooter = lazy(() =>
   import("./components/ui/motion-footer").then((m) => ({
     default: m.CinematicFooter,
@@ -85,40 +114,56 @@ export default function App() {
           <ScrollVelocityDemo />
 
           <section id="tecnologias" className="px-4 py-20 sm:py-24">
-            <HeroScrollDemo />
+            <Suspense fallback={null}>
+              <HeroScrollDemo />
+            </Suspense>
           </section>
 
           <section id="perfil" className="px-4 py-20 sm:py-24">
-            <AboutDemo />
+            <Suspense fallback={null}>
+              <AboutDemo />
+            </Suspense>
           </section>
 
           <section id="habilidades" className="py-20 sm:py-24">
-            <SkillsDemo />
+            <Suspense fallback={null}>
+              <SkillsDemo />
+            </Suspense>
           </section>
 
           <section id="panorama" className="py-20 sm:py-24">
-            <FeaturesSectionDemo />
-            <div className="mt-10">
-              <BentoGridThirdDemo />
-            </div>
+            <Suspense fallback={null}>
+              <FeaturesSectionDemo />
+              <div className="mt-10">
+                <BentoGridThirdDemo />
+              </div>
+            </Suspense>
           </section>
 
           <section id="proyectos" className="px-4 py-20 sm:py-24">
             <SectionHeading number="04" eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
-            <ProjectCardsDemo />
+            <Suspense fallback={null}>
+              <ProjectCardsDemo />
+            </Suspense>
           </section>
 
           <section id="certificaciones" className="px-4 py-20 sm:py-24">
-            <CertificationsDemo />
+            <Suspense fallback={null}>
+              <CertificationsDemo />
+            </Suspense>
           </section>
 
           <section id="trayectoria" className="px-4 py-20 sm:py-24">
             <SectionHeading number="06" eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
-            <TimelineDemo />
+            <Suspense fallback={null}>
+              <TimelineDemo />
+            </Suspense>
           </section>
 
           <section id="disponibilidad" className="py-20 sm:py-24">
-            <GlobeDemo />
+            <Suspense fallback={null}>
+              <GlobeDemo />
+            </Suspense>
           </section>
 
           <section id="contacto" className="px-4 py-20 sm:py-24">
@@ -134,11 +179,15 @@ export default function App() {
             />
             <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-8 lg:grid-cols-2">
               <div className="flex flex-col items-center">
-                <CardDemo />
-                <ContactExtrasDemo />
+                <Suspense fallback={null}>
+                  <CardDemo />
+                  <ContactExtrasDemo />
+                </Suspense>
               </div>
               <div className="flex justify-center">
-                <ContactFormDemo />
+                <Suspense fallback={null}>
+                  <ContactFormDemo />
+                </Suspense>
               </div>
             </div>
           </section>
@@ -154,7 +203,9 @@ export default function App() {
         </Suspense>
       </div>
 
-      <DevConsoleDemo />
+      <Suspense fallback={null}>
+        <DevConsoleDemo />
+      </Suspense>
     </A11yProvider>
   );
 }
