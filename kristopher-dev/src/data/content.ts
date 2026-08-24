@@ -15,8 +15,9 @@ export const profile = {
   linkedin:
     "https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/",
   github: "https://github.com/KrisAndre-25",
+  portfolio: "https://kristopher-astudillo-portfolio.netlify.app/",
   photo: "kristopher.jpg",
-  cv: "cv/CV_Kristopher_Andre_Astudillo.pdf",
+  cv: "/cv/CV_Kristopher_Andre_Astudillo.pdf",
   cvName: "CV-Kristopher-Astudillo.pdf",
   /** Número en formato internacional sin signos, para el enlace de WhatsApp. */
   whatsapp: "56950902425",
@@ -569,7 +570,7 @@ export const intents: Intent[] = [
     keys: ["contacto", "contactar", "correo", "email", "mail", "gmail", "escribir", "hablar", "comunicar"],
     question: "¿Cómo lo contacto?",
     answer:
-      "Por correo a kristopherastudillo@gmail.com, por WhatsApp al +56 9 5090 2425, o por LinkedIn. Los tres botones están en la sección de Contacto, al final de la página. Responde el mismo día.",
+      "Por correo a kristopherastudillo@gmail.com, por WhatsApp al +56 9 5090 2425, o por LinkedIn. Los botones están en la sección de Contacto, al final de la página. También puedes compartir este portafolio: kristopher-astudillo-portfolio.netlify.app. Responde el mismo día.",
     suggested: true,
   },
   {

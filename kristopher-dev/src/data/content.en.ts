@@ -24,8 +24,9 @@ export const profile = {
   linkedin:
     "https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/",
   github: "https://github.com/KrisAndre-25",
+  portfolio: "https://kristopher-astudillo-portfolio.netlify.app/",
   photo: "kristopher.jpg",
-  cv: "cv/CV_Kristopher_Andre_Astudillo.pdf",
+  cv: "/cv/CV_Kristopher_Andre_Astudillo.pdf",
   cvName: "CV-Kristopher-Astudillo.pdf",
   whatsapp: "56950902425",
   intro:
@@ -512,7 +513,7 @@ export const intents: Intent[] = [
     keys: ["contact", "reach", "email", "mail", "gmail", "write", "talk", "get in touch"],
     question: "How do I contact him?",
     answer:
-      "By email at kristopherastudillo@gmail.com, by WhatsApp at +56 9 5090 2425, or via LinkedIn. All three buttons are in the Contact section, at the bottom of the page. He replies the same day.",
+      "By email at kristopherastudillo@gmail.com, by WhatsApp at +56 9 5090 2425, or via LinkedIn. The buttons are in the Contact section, at the bottom of the page. You can also share this portfolio: kristopher-astudillo-portfolio.netlify.app. He replies the same day.",
     suggested: true,
   },
   {

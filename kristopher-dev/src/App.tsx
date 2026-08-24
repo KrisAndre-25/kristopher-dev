@@ -48,7 +48,7 @@ export default function App() {
     { label: language === "en" ? "Email" : "Correo", href: mailtoUrl, icon: Mail },
     { label: "LinkedIn", href: profile.linkedin, icon: IconBrandLinkedin, external: true },
     { label: "GitHub", href: profile.github, icon: IconBrandGithub, external: true },
-    { label: t.contacto.card.descargarCv, href: profile.cv, icon: Download, download: profile.cvName },
+    { label: t.contacto.card.descargarCv, href: profile.cv, icon: Download, external: true, download: profile.cvName },
   ];
 
   return (

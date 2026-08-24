@@ -1,5 +1,5 @@
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { Mail, Download } from "lucide-react";
+import { Mail, Download, Globe } from "lucide-react";
 import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
@@ -14,6 +14,7 @@ export function CardDemo() {
     { label: language === "en" ? "Email" : "Correo", href: mailtoUrl, icon: Mail, external: false },
     { label: "LinkedIn", href: profile.linkedin, icon: IconBrandLinkedin, external: true },
     { label: "GitHub", href: profile.github, icon: IconBrandGithub, external: true },
+    { label: "Portfolio", href: profile.portfolio, icon: Globe, external: true },
   ];
 
   return (
@@ -35,7 +36,7 @@ export function CardDemo() {
         </CardItem>
 
         <CardItem translateZ={70} className="mt-5 w-full">
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-4 gap-2.5">
             {links.map(({ label, href, icon: Icon, external }) => (
               <a
                 key={label}
@@ -43,7 +44,7 @@ export function CardDemo() {
                 title={label}
                 aria-label={label}
                 target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
                 className="flex h-11 items-center justify-center rounded-xl border border-white/10 bg-neutral-900 text-neutral-300 transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:text-sky-400"
               >
                 <Icon className="h-4 w-4" />
@@ -52,6 +53,8 @@ export function CardDemo() {
           </div>
           <a
             href={profile.cv}
+            target="_blank"
+            rel="noopener noreferrer"
             download={profile.cvName}
             className="mt-2.5 flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-neutral-300 transition hover:border-sky-400/50 hover:text-sky-400"
           >

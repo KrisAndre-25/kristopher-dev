@@ -290,7 +290,7 @@ export function CinematicFooter({
                     as="a"
                     href={href}
                     target={external ? "_blank" : undefined}
-                    rel={external ? "noreferrer" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
                     download={download}
                     className="footer-glass-pill group flex items-center gap-2.5 rounded-full px-6 py-3.5 text-xs font-bold text-neutral-200 sm:px-8 sm:py-4 sm:text-sm"
                   >
