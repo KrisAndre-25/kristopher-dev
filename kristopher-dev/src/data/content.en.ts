@@ -24,6 +24,7 @@ export const profile = {
   linkedin:
     "https://www.linkedin.com/in/kristopher-astudillo-dur%C3%A1n-b69083312/",
   github: "https://github.com/KrisAndre-25",
+  githubRepo: "https://github.com/KrisAndre-25/kristopher-dev",
   portfolio: "https://kristopher-astudillo-portfolio.netlify.app/",
   photo: "kristopher.jpg",
   cv: "/cv/CV_Kristopher_Andre_Astudillo.pdf",

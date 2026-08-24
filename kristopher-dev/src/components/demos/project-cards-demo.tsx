@@ -196,10 +196,10 @@ export function ProjectCardsDemo() {
             items={t.proyectos.portfolioFeatures}
           />
           <a
-            href={profile.github}
+            href={profile.githubRepo}
             target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-400 transition hover:text-sky-300"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:text-sky-400"
           >
             <IconBrandGithub className="h-4 w-4" />
             {t.proyectos.githubLinkLabel}
