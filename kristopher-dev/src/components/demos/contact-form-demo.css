@@ -1,0 +1,308 @@
+/* Skin cyberpunk/glitch, inspirado en un componente de Uiverse.io
+   (by pharmacist-sabot), adaptado al formulario real de contacto
+   (nombre, correo, mensaje y verificación) en vez de usuario/clave. */
+
+.cfg-wrapper {
+  --cfg-bg: #0d0d0d;
+  --cfg-primary: #00f2ea;
+  --cfg-secondary: #a855f7;
+  --cfg-text: #e5e5e5;
+  --cfg-glitch-duration: 0.5s;
+
+  width: 100%;
+  max-width: 28rem;
+  font-family: "Fira Code", Consolas, "Courier New", Courier, monospace;
+}
+
+.cfg-card {
+  position: relative;
+  background-color: var(--cfg-bg);
+  border: 1px solid rgba(0, 242, 234, 0.2);
+  box-shadow:
+    0 0 20px rgba(0, 242, 234, 0.1),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.cfg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.6em 1em;
+  border-bottom: 1px solid rgba(0, 242, 234, 0.2);
+}
+
+.cfg-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--cfg-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cfg-title svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+.cfg-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.cfg-dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #333;
+}
+
+.cfg-body {
+  padding: 1.5rem;
+}
+
+.cfg-subheading {
+  margin: 0 0 1.25rem;
+  font-size: 0.75rem;
+  color: rgba(229, 229, 229, 0.5);
+}
+
+.cfg-group {
+  position: relative;
+  margin-bottom: 1.75rem;
+}
+
+.cfg-group--captcha {
+  display: flex;
+  flex-direction: column;
+}
+
+.cfg-static-label {
+  display: block;
+  margin-bottom: 0.4em;
+  color: var(--cfg-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+
+.cfg-captcha-input {
+  width: 6rem;
+}
+
+.cfg-label {
+  position: absolute;
+  top: 0.75em;
+  left: 0;
+  font-size: 1rem;
+  color: var(--cfg-primary);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.cfg-group input,
+.cfg-group textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 242, 234, 0.3);
+  padding: 0.75em 0;
+  font-size: 1rem;
+  color: var(--cfg-text);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.cfg-group textarea {
+  resize: none;
+  line-height: 1.4;
+}
+
+.cfg-group input:focus,
+.cfg-group textarea:focus {
+  border-color: var(--cfg-primary);
+}
+
+.cfg-group input:focus + .cfg-label,
+.cfg-group input:not(:placeholder-shown) + .cfg-label,
+.cfg-group textarea:focus + .cfg-label,
+.cfg-group textarea:not(:placeholder-shown) + .cfg-label {
+  top: -1.2em;
+  font-size: 0.75rem;
+  opacity: 1;
+}
+
+.cfg-group input:focus + .cfg-label::before,
+.cfg-group input:focus + .cfg-label::after,
+.cfg-group textarea:focus + .cfg-label::before,
+.cfg-group textarea:focus + .cfg-label::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cfg-bg);
+}
+
+.cfg-group input:focus + .cfg-label::before,
+.cfg-group textarea:focus + .cfg-label::before {
+  color: var(--cfg-secondary);
+  animation: cfg-glitch var(--cfg-glitch-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.cfg-group input:focus + .cfg-label::after,
+.cfg-group textarea:focus + .cfg-label::after {
+  color: var(--cfg-primary);
+  animation: cfg-glitch var(--cfg-glitch-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both;
+}
+
+@keyframes cfg-glitch {
+  0% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+  20% {
+    transform: translate(-5px, 3px);
+    clip-path: inset(50% 0 20% 0);
+  }
+  40% {
+    transform: translate(3px, -2px);
+    clip-path: inset(20% 0 60% 0);
+  }
+  60% {
+    transform: translate(-4px, 2px);
+    clip-path: inset(80% 0 5% 0);
+  }
+  80% {
+    transform: translate(4px, -3px);
+    clip-path: inset(30% 0 45% 0);
+  }
+  100% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.cfg-status {
+  min-height: 1.1rem;
+  margin: -0.75rem 0 1rem;
+  font-size: 0.8rem;
+}
+
+.cfg-status--sent {
+  color: #5eead4;
+}
+
+.cfg-status--error {
+  color: #fb7185;
+}
+
+/* --- Botón --- */
+.cfg-submit {
+  width: 100%;
+  padding: 0.8em;
+  background-color: transparent;
+  border: 2px solid var(--cfg-primary);
+  color: var(--cfg-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.cfg-submit:hover:not(:disabled),
+.cfg-submit:focus-visible:not(:disabled) {
+  background-color: var(--cfg-primary);
+  color: var(--cfg-bg);
+  box-shadow: 0 0 25px var(--cfg-primary);
+  outline: none;
+}
+
+.cfg-submit:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.cfg-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cfg-submit-text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: opacity 0.2s ease;
+}
+
+.cfg-submit:hover:not(:disabled) .cfg-submit-text {
+  opacity: 0;
+}
+
+.cfg-submit::before,
+.cfg-submit::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  background-color: var(--cfg-primary);
+  transition: opacity 0.2s ease;
+}
+
+.cfg-submit:hover:not(:disabled)::before,
+.cfg-submit:focus-visible:not(:disabled)::before {
+  opacity: 1;
+  color: var(--cfg-secondary);
+  animation: cfg-glitch var(--cfg-glitch-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.cfg-submit:hover:not(:disabled)::after,
+.cfg-submit:focus-visible:not(:disabled)::after {
+  opacity: 1;
+  color: var(--cfg-bg);
+  animation: cfg-glitch var(--cfg-glitch-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cfg-group input:focus + .cfg-label::before,
+  .cfg-group input:focus + .cfg-label::after,
+  .cfg-group textarea:focus + .cfg-label::before,
+  .cfg-group textarea:focus + .cfg-label::after,
+  .cfg-submit:hover:not(:disabled)::before,
+  .cfg-submit:focus-visible:not(:disabled)::before,
+  .cfg-submit:hover:not(:disabled)::after,
+  .cfg-submit:focus-visible:not(:disabled)::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .cfg-submit:hover:not(:disabled) .cfg-submit-text {
+    opacity: 1;
+  }
+}

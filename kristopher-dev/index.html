@@ -91,6 +91,16 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Formulario oculto para que Netlify lo detecte en el build y
+         notifique por correo cada vez que alguien califica el portafolio.
+         El envío real lo hace RatingStars vía fetch a "/". -->
+    <form name="calificacion-portafolio" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="rating" />
+      <input type="text" name="pagina" />
+      <input name="bot-field" />
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

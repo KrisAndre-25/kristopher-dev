@@ -6,6 +6,24 @@ import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "kd-portfolio-rating";
 
+function encodeFormData(data: Record<string, string>) {
+  return Object.entries(data)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join("&");
+}
+
+function notifyRating(n: number) {
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: encodeFormData({
+      "form-name": "calificacion-portafolio",
+      rating: String(n),
+      pagina: window.location.href,
+    }),
+  }).catch(() => {});
+}
+
 export function RatingStars({
   heading,
   thanks,
@@ -26,8 +44,10 @@ export function RatingStars({
   }, []);
 
   const setAndPersist = (n: number) => {
+    const alreadyRated = rating !== null;
     setRating(n);
     window.localStorage.setItem(STORAGE_KEY, String(n));
+    if (!alreadyRated) notifyRating(n);
   };
 
   const active = hovered ?? rating ?? 0;
