@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { IconBrandGithub, IconX } from "@tabler/icons-react";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
 import { useOutsideClick } from "@/hooks/use-outside-click";
@@ -199,7 +199,7 @@ export function ProjectCardsDemo() {
             href={profile.githubRepo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:text-sky-400"
+            className="mx-auto flex w-fit items-center gap-2 rounded-full border border-white/15 bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:text-sky-400"
           >
             <IconBrandGithub className="h-4 w-4" />
             {t.proyectos.githubLinkLabel}
@@ -239,9 +239,14 @@ export function ProjectCardsDemo() {
               </CardItem>
 
               <CardItem translateZ={50} className="mt-4 w-full">
-                <InteractiveHoverButton onClick={() => setActive(p)}>
+                <button
+                  type="button"
+                  onClick={() => setActive(p)}
+                  className="group inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white px-6 py-2 text-sm font-semibold text-neutral-950 transition-colors duration-300 hover:bg-sky-400"
+                >
                   {t.proyectos.verProyecto}
-                </InteractiveHoverButton>
+                  <ArrowRight className="h-4 w-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                </button>
               </CardItem>
             </CardBody>
           </CardContainer>
@@ -282,7 +287,7 @@ function ProjectModal({
   return (
     <AnimatePresence>
       {entry && (
-        <div className="fixed inset-0 z-[100] flex h-screen items-center justify-center p-4">
+        <div className="fixed inset-0 z-[200] flex h-screen items-center justify-center px-4 pb-4 pt-24 sm:pt-28">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -297,7 +302,7 @@ function ProjectModal({
             aria-modal="true"
             aria-labelledby={titleId}
             ref={ref}
-            className="relative z-[101] max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl border border-white/10 bg-neutral-950 p-5 sm:p-6"
+            className="relative z-[201] max-h-[calc(100vh-8rem)] w-full max-w-md overflow-y-auto rounded-2xl border border-white/10 bg-neutral-950 p-5 sm:p-6"
           >
             <button
               ref={closeRef}
