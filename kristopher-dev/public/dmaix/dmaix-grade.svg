@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="g" cx="70%" cy="40%" r="65%"><stop offset="0" stop-color="#10b981" stop-opacity=".35"/><stop offset="1" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".05"/></pattern>
+  </defs>
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <g font-family="Inter,system-ui,sans-serif">
+    <text x="160" y="300" font-family="ui-monospace,Menlo,monospace" font-size="24" letter-spacing="5" fill="#34d399">PROBADO EN PLANTA METALÚRGICA</text>
+    <text x="160" y="390" font-weight="800" font-size="72" fill="#f5f5f5">100% modular.</text>
+    <text x="160" y="470" font-weight="800" font-size="72" fill="#a3a3a3">Cero papel.</text>
+    <g font-family="ui-monospace,Menlo,monospace" font-size="20" fill="#7dd3fc">
+      <rect x="160" y="530" width="110" height="44" rx="22" fill="#171717" stroke="#ffffff" stroke-opacity=".12"/><text x="215" y="559" text-anchor="middle">React</text>
+      <rect x="284" y="530" width="140" height="44" rx="22" fill="#171717" stroke="#ffffff" stroke-opacity=".12"/><text x="354" y="559" text-anchor="middle">Supabase</text>
+      <rect x="438" y="530" width="104" height="44" rx="22" fill="#171717" stroke="#ffffff" stroke-opacity=".12"/><text x="490" y="559" text-anchor="middle">Slack</text>
+      <rect x="556" y="530" width="130" height="44" rx="22" fill="#171717" stroke="#ffffff" stroke-opacity=".12"/><text x="621" y="559" text-anchor="middle">Gemini</text>
+    </g>
+  </g>
+  <circle cx="930" cy="400" r="170" fill="#10b981" fill-opacity=".08" stroke="#34d399" stroke-width="4"/>
+  <circle cx="930" cy="400" r="140" fill="none" stroke="#34d399" stroke-opacity=".3" stroke-width="2" stroke-dasharray="6 10"/>
+  <text x="930" y="430" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="110" fill="#6ee7b7">7.0</text>
+  <text x="930" y="490" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="22" letter-spacing="4" fill="#a3a3a3">NOTA FINAL</text>
+</svg>

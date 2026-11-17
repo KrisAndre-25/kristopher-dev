@@ -11,30 +11,40 @@ import {
 import { cn } from "@/lib/utils";
 
 export function ShareButton({
+  shareUrl,
   shareTitle,
   buttonLabel,
   instagramLabel,
   instagramCopiedLabel,
   className,
 }: {
+  /** URL pública a compartir. Si no se pasa, se usa la página actual sin el #ancla. */
+  shareUrl?: string;
   shareTitle: string;
   buttonLabel: string;
   instagramLabel?: string;
   instagramCopiedLabel?: string;
   className?: string;
 }) {
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const url =
+    shareUrl ??
+    (typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}` : "");
   const [instagramCopied, setInstagramCopied] = useState(false);
 
-  const handleInstagramShare = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setInstagramCopied(true);
-      window.setTimeout(() => setInstagramCopied(false), 2000);
-    } catch {
-      /* si el portapapeles falla, igual lo llevamos a Instagram */
-    }
-    window.open("https://www.instagram.com/", "_blank", "noreferrer");
+  const handleInstagramShare = () => {
+    // Instagram no tiene un enlace para compartir desde la web: copiamos la URL
+    // y abrimos Instagram. La ventana se abre de forma síncrona dentro del clic
+    // para que Safari/Firefox no la bloqueen como pop-up.
+    window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+    navigator.clipboard
+      ?.writeText(url)
+      .then(() => {
+        setInstagramCopied(true);
+        window.setTimeout(() => setInstagramCopied(false), 2000);
+      })
+      .catch(() => {
+        /* sin permiso de portapapeles: Instagram igual queda abierto */
+      });
   };
 
   const links = [

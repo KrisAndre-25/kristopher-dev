@@ -8,7 +8,7 @@ export function GlobeDemo() {
 
   return (
     <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-4">
-      <SectionHeading number="07" eyebrow={t.disponibilidad.eyebrow} title={t.disponibilidad.title} />
+      <SectionHeading number="06" eyebrow={t.disponibilidad.eyebrow} title={t.disponibilidad.title} />
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

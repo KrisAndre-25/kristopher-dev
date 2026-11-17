@@ -13,7 +13,6 @@ import { ArrowUp } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
 
 if (typeof window !== "undefined") {
@@ -29,14 +28,8 @@ const STYLES = `
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-@keyframes footer-heartbeat {
-  0%, 100% { transform: scale(1); }
-  15%, 45% { transform: scale(1.25); }
-  30% { transform: scale(1); }
-}
 .animate-footer-breathe { animation: footer-breathe 8s ease-in-out infinite alternate; }
 .animate-footer-scroll-marquee { animation: footer-scroll-marquee 40s linear infinite; }
-.animate-footer-heartbeat { animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
 
 .footer-bg-grid {
   background-size: 60px 60px;
@@ -186,7 +179,6 @@ export function CinematicFooter({
   className?: string;
 }) {
   const t = useUiStrings();
-  const { profile } = useContent();
   const giantWord = title.split(" ")[0];
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -305,16 +297,6 @@ export function CinematicFooter({
           <div className="relative z-20 flex w-full flex-col items-center justify-between gap-4 px-4 pb-6 sm:flex-row sm:px-8 sm:pb-8">
             <div className="order-2 text-center text-[0.6rem] font-semibold uppercase tracking-widest text-neutral-500 sm:order-1 sm:text-left sm:text-[0.65rem]">
               {copyright}
-            </div>
-
-            <div className="footer-glass-pill order-1 flex cursor-default items-center gap-2 rounded-full border-white/5 px-5 py-2.5 sm:order-2">
-              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-neutral-500 sm:text-[0.65rem]">
-                {t.footer.madeWith}
-              </span>
-              <span className="animate-footer-heartbeat text-sm text-rose-400 sm:text-base">♥</span>
-              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-neutral-500 sm:text-[0.65rem]">
-                {profile.location}
-              </span>
             </div>
 
             <MagneticButton

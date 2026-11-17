@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="g" cx="30%" cy="30%" r="70%"><stop offset="0" stop-color="#0ea5e9" stop-opacity=".3"/><stop offset="1" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="#0a0a0a"/>
+  <rect width="800" height="800" fill="url(#g)"/>
+  <text x="400" y="150" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="24" letter-spacing="4" fill="#38bdf8">OT #2041 · TRAZABILIDAD</text>
+  <line x1="180" y1="210" x2="180" y2="640" stroke="#ffffff" stroke-opacity=".12" stroke-width="4"/>
+  <line x1="180" y1="210" x2="180" y2="500" stroke="#38bdf8" stroke-width="4"/>
+  <g font-family="Inter,system-ui,sans-serif">
+    <g transform="translate(0 230)"><circle cx="180" cy="0" r="14" fill="#38bdf8"/><rect x="220" y="-34" width="420" height="68" rx="14" fill="#171717" stroke="#ffffff" stroke-opacity=".1"/><text x="244" y="10" font-size="26" fill="#e5e5e5">Orden creada</text><text x="616" y="10" text-anchor="end" font-family="ui-monospace,monospace" font-size="20" fill="#737373">08:02</text></g>
+    <g transform="translate(0 365)"><circle cx="180" cy="0" r="14" fill="#38bdf8"/><rect x="220" y="-34" width="420" height="68" rx="14" fill="#171717" stroke="#ffffff" stroke-opacity=".1"/><text x="244" y="10" font-size="26" fill="#e5e5e5">En proceso · Torno 3</text><text x="616" y="10" text-anchor="end" font-family="ui-monospace,monospace" font-size="20" fill="#737373">09:15</text></g>
+    <g transform="translate(0 500)"><circle cx="180" cy="0" r="14" fill="#f59e0b"/><rect x="220" y="-34" width="420" height="68" rx="14" fill="#f59e0b" fill-opacity=".08" stroke="#f59e0b" stroke-opacity=".5"/><text x="244" y="10" font-size="26" fill="#fcd34d">Parada → alerta Slack</text><text x="616" y="10" text-anchor="end" font-family="ui-monospace,monospace" font-size="20" fill="#a16207">10:41</text></g>
+    <g transform="translate(0 635)"><circle cx="180" cy="0" r="14" fill="#262626" stroke="#525252" stroke-width="3"/><rect x="220" y="-34" width="420" height="68" rx="14" fill="#171717" stroke="#ffffff" stroke-opacity=".06"/><text x="244" y="10" font-size="26" fill="#737373">Despacho al cliente</text></g>
+  </g>
+  <text x="400" y="740" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="20" fill="#a3a3a3">IA · Gemini Flash · reportes en vivo</text>
+</svg>

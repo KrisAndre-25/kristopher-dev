@@ -27,11 +27,11 @@ export const profile = {
   githubRepo: "https://github.com/KrisAndre-25/kristopher-dev",
   portfolio: "https://kristopher-astudillo-portfolio.netlify.app/",
   photo: "kristopher.jpg",
-  cv: "/cv/CV_Kristopher_Andre_Astudillo.pdf",
+  cv: "/cv/CV_Kristopher_Astudillo.pdf",
   cvName: "CV-Kristopher-Astudillo.pdf",
   whatsapp: "56950902425",
   intro:
-    "My focus is the frontend: I build fast, accessible interfaces with a polished user experience, in React and TypeScript. I come from automated QA, so I think about edge cases and maintainability before writing the first line. Clean, scalable, reusable code, built under Scrum and Kanban.",
+    "My focus is the frontend: I build fast, accessible interfaces with a polished user experience, in React and TypeScript. I have a QA mindset, formed during my internship at Speaknosis: I think about edge cases and how to test before writing the first line. I build with AI like an AI Engineer: Claude Code, Codex, agents, skills and plugins. I organize my work with agile methodology on Kanban boards.",
   availability: "Available for new projects",
 };
 
@@ -325,11 +325,21 @@ export const stackGroups: { group: string; items: Tech[] }[] = [
   {
     group: "Quality & infrastructure",
     items: [
-      { name: "Playwright", level: "solido", note: "Full E2E suite on a real product. My specialty." },
+      { name: "Playwright", level: "solido", note: "Full E2E suite on a real product (Speaknosis internship)." },
       { name: "Docker", level: "practico", note: "Containers for development and deployment." },
       { name: "Terraform", level: "practico", note: "Infrastructure as code, applied on StudyMatch." },
       { name: "AWS Academy", level: "practico", note: "DuocUC academic lab for experimenting with the cloud." },
       { name: "JUnit 5", level: "practico", note: "Unit testing on the Java backend." },
+    ],
+  },
+  {
+    group: "AI & agents",
+    items: [
+      { name: "Claude Code", level: "solido", note: "My everyday AI-assisted development environment." },
+      { name: "Codex", level: "practico", note: "Coding agent for parallel tasks and reviews." },
+      { name: "AI agents", level: "practico", note: "I design agents and subagents that run tasks end to end." },
+      { name: "Skills & plugins", level: "practico", note: "I build skills, plugins and MCP connections to extend agents." },
+      { name: "Gemini API", level: "practico", note: "Real-time analytics and reports inside DMAIX." },
     ],
   },
 ];
@@ -470,7 +480,7 @@ export const intents: Intent[] = [
     keys: ["methodology", "scrum", "kanban", "agile", "sprint", "jira", "trello", "how do you organize"],
     question: "What methodology does he use?",
     answer:
-      "He works with agile methodologies: Scrum and Kanban, tracked in Jira. On StudyMatch he coordinated frontend and backend work in a two-person team, and at Speaknosis he fit into the team's cycles with Git Flow and Conventional Commits.",
+      "He works with agile methodology on Kanban boards (Trello or Jira) for tracking. On StudyMatch he coordinated frontend and backend work in a two-person team, and at Speaknosis he fit into the team's cycles with Git Flow and Conventional Commits.",
   },
   {
     id: "como-programa",
@@ -560,6 +570,19 @@ export const assistantFallback =
 
 /* ── Certifications ───────────────────────────────────── */
 export const certifications: Cert[] = [
+  {
+    id: "desafiolatam-ia",
+    name: "AI Solutions Development",
+    org: "Desafío Latam · Entel",
+    date: "October 21, 2026",
+    hours: "28 hours",
+    summary:
+      "Intergenerational Tech Duos 2026 program (Entel + Desafío Latam). Designing and building AI-powered solutions paired with a senior industry professional; this is where DMAIX was born, a digital traceability platform for metalworking plants.",
+    skills: ["Artificial Intelligence", "Product development", "Pair work"],
+    image: "certificados/CertificadoDesafiolatam.jpeg",
+    thumb: "certificados/CertificadoDesafiolatam.jpeg",
+    code: "10443",
+  },
   {
     id: "daxus-ia",
     name: "AI in Practice Immersion",

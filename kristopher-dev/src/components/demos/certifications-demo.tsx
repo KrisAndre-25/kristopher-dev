@@ -1,89 +1,98 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, ShieldCheck, ExternalLink, FileText, X } from "lucide-react";
+import { ShieldCheck, ExternalLink, FileText, X } from "lucide-react";
 import type { Cert } from "@/data/content";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
-import { RetroGrid } from "@/components/ui/retro-grid";
 import { SectionHeading } from "@/components/SectionHeading";
+import { TiltedGridHero } from "@/components/ui/tilted-grid-hero";
+
+/** Desvanecido de los bordes con curva suave (sin escalones visibles).
+ *  rgb(10 10 10) = bg-neutral-950. */
+const EDGE_FADE = [
+  "rgb(10 10 10 / 1) 0%",
+  "rgb(10 10 10 / 0.97) 12%",
+  "rgb(10 10 10 / 0.9) 25%",
+  "rgb(10 10 10 / 0.78) 38%",
+  "rgb(10 10 10 / 0.62) 50%",
+  "rgb(10 10 10 / 0.45) 62%",
+  "rgb(10 10 10 / 0.28) 74%",
+  "rgb(10 10 10 / 0.13) 86%",
+  "rgb(10 10 10 / 0) 100%",
+].join(", ");
 
 export function CertificationsDemo() {
   const { certifications } = useContent();
   const t = useUiStrings();
   const [active, setActive] = useState<Cert | null>(null);
 
+  const images = useMemo(
+    () =>
+      certifications
+        .filter((c) => c.image ?? c.thumb)
+        .map((c) => ({ src: (c.image ?? c.thumb) as string, alt: c.name })),
+    [certifications],
+  );
+  const withImage = useMemo(() => certifications.filter((c) => c.image ?? c.thumb), [certifications]);
+
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950 py-12">
-      <RetroGrid />
+    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950">
+      <TiltedGridHero
+        images={images}
+        onImageClick={(i) => setActive(withImage[i] ?? null)}
+        aspectRatio={1.39}
+        tileHeight={32}
+        axis={60}
+        gap={28}
+        curve={55}
+        fade={18}
+        speed={4.5}
+        className="h-[460px] w-full sm:h-[580px]"
+      >
+        {/* Bordes: degradados opacos del color del fondo. La máscara del
+            componente no alcanza a transparentar del todo las tarjetas que se
+            curvan hacia la cámara, y quedaban cortadas contra el borde. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-[18%]"
+          style={{ backgroundImage: `linear-gradient(to right, ${EDGE_FADE})` }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-[18%]"
+          style={{ backgroundImage: `linear-gradient(to left, ${EDGE_FADE})` }}
+        />
+        {/* Capa de texto: no intercepta clics, así llegan a los certificados */}
+        <div className="pointer-events-none relative z-10 flex h-full flex-col items-center justify-between pb-6 pt-10 text-center">
+          <SectionHeading number="04" eyebrow={t.certificaciones.eyebrow} className="px-4" />
+          <p className="px-6 font-mono text-[0.7rem] uppercase tracking-widest text-neutral-300">
+            {t.certificaciones.gridHint}
+          </p>
+        </div>
+      </TiltedGridHero>
 
-      <SectionHeading number="05" eyebrow={t.certificaciones.eyebrow} className="relative z-10 px-4" />
-
-      <div className="relative z-10 mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 sm:grid-cols-2 lg:grid-cols-3">
-        {certifications.map((cert) => (
-          <CardContainer key={cert.id} containerClassName="py-0">
-            <CardBody className="relative flex h-full w-full flex-col rounded-2xl border border-white/10 bg-neutral-950 p-5 transition-shadow hover:shadow-[0_0_40px_-12px_rgba(56,189,248,0.35)]">
-              <CardItem translateZ={50} className="w-full">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-900">
-                  {cert.thumb ? (
-                    <img src={cert.thumb} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <Award className="h-10 w-10 text-neutral-700" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  {cert.verifyUrl && (
-                    <CardItem
-                      translateZ={80}
-                      className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 font-mono text-[0.65rem] text-emerald-400 ring-1 ring-emerald-400/30"
-                    >
-                      <ShieldCheck className="h-3 w-3" /> {t.certificaciones.verificable}
-                    </CardItem>
-                  )}
-                </div>
-              </CardItem>
-
-              <CardItem translateZ={40} className="mt-4 w-full">
-                <p className="font-mono text-[0.65rem] uppercase tracking-widest text-sky-400">
-                  {cert.org}
-                </p>
-              </CardItem>
-              <CardItem translateZ={60} className="mt-1 w-full">
-                <h3 className="text-base font-semibold text-white">{cert.name}</h3>
-              </CardItem>
-              <CardItem translateZ={30} className="mt-1 w-full">
-                <p className="text-xs text-neutral-500">
-                  {cert.date}
-                  {cert.hours ? ` · ${cert.hours}` : ""}
-                </p>
-              </CardItem>
-              <CardItem translateZ={30} className="mt-3 flex w-full flex-wrap gap-1.5">
-                {cert.skills.map((s) => (
-                  <span
-                    key={s}
-                    className="rounded-full border border-white/10 bg-neutral-900 px-2.5 py-0.5 font-mono text-[0.65rem] text-neutral-400"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </CardItem>
-
-              <CardItem translateZ={50} className="mt-4 w-full">
-                <InteractiveHoverButton
-                  variant="dark"
-                  className="w-full"
-                  onClick={() => setActive(cert)}
-                >
-                  {t.certificaciones.verCertificado}
-                </InteractiveHoverButton>
-              </CardItem>
-            </CardBody>
-          </CardContainer>
-        ))}
-      </div>
+      {/* Lista accesible (teclado y lectores de pantalla) con los mismos destinos */}
+      <nav aria-label={t.certificaciones.listLabel} className="border-t border-white/10 px-4 py-6">
+        <ul className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2">
+          {certifications.map((cert) => (
+            <li key={cert.id}>
+              <button
+                type="button"
+                onClick={() => setActive(cert)}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-neutral-900 px-4 py-2 text-left text-xs text-neutral-200 transition hover:border-sky-400/60 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:text-sm"
+              >
+                <span className="font-mono text-[0.65rem] uppercase tracking-widest text-sky-400">{cert.org}</span>
+                <span aria-hidden="true" className="h-3 w-px bg-white/15" />
+                <span className="font-medium">{cert.name}</span>
+                {cert.verifyUrl && (
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" aria-label={t.certificaciones.verificable} />
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <CertModal cert={active} onClose={() => setActive(null)} t={t} />
     </div>

@@ -32,7 +32,6 @@ export function GooeyInputDemo({ className }: { className?: string }) {
     { label: t.nav.stack, sectionId: "tecnologias", keywords: ["stack", "tecnologias", "technologies", "herramientas", "tools"] },
     { label: language === "en" ? "Profile" : "Perfil", sectionId: "perfil", keywords: ["perfil", "profile", "qa", "sobre mi", "about"] },
     { label: t.nav.habilidades, sectionId: "habilidades", keywords: ["habilidades", "skills", "hard skills", "soft skills"] },
-    { label: t.nav.panorama, sectionId: "panorama", keywords: ["panorama", "overview", "resumen"] },
     { label: t.nav.proyectos, sectionId: "proyectos", keywords: ["proyectos", "projects", "trabajos", "work"] },
     { label: t.nav.certificaciones, sectionId: "certificaciones", keywords: ["certificaciones", "certifications", "duoc", "formacion"] },
     { label: t.nav.trayectoria, sectionId: "trayectoria", keywords: ["trayectoria", "journey", "experiencia", "experience", "timeline", "formacion"] },

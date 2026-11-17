@@ -18,20 +18,32 @@ export const CardContainer = ({
   children,
   className,
   containerClassName,
+  maxTilt,
 }: {
   children?: ReactNode;
   className?: string;
   containerClassName?: string;
+  /** Inclinación máxima en grados, proporcional al tamaño de la tarjeta.
+   *  Útil en tarjetas anchas, donde la fórmula por píxeles gira de más. */
+  maxTilt?: number;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 18;
-    const y = (e.clientY - top - height / 2) / 18;
+    let x: number;
+    let y: number;
+    if (maxTilt !== undefined) {
+      x = ((e.clientX - left) / width - 0.5) * 2 * maxTilt;
+      y = ((e.clientY - top) / height - 0.5) * 2 * maxTilt;
+    } else {
+      x = (e.clientX - left - width / 2) / 18;
+      y = (e.clientY - top - height / 2) / 18;
+    }
     containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
   };
 

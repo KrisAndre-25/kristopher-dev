@@ -3,3 +3,7 @@ dist
 .DS_Store
 *.local
 .env
+
+# Archivos locales que no van al repo
+debug.log
+public/referencia_switch/

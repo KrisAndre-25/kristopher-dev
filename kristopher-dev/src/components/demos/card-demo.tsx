@@ -1,12 +1,12 @@
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Mail, Download, Globe } from "lucide-react";
-import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
+import { IconBrandLinkedin, IconBrandGithub, IconBrandWhatsapp } from "@tabler/icons-react";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
 import { useLanguage } from "@/hooks/useLanguage";
 
 export function CardDemo() {
-  const { profile, mailtoUrl } = useContent();
+  const { profile, mailtoUrl, whatsappUrl } = useContent();
   const t = useUiStrings();
   const { language } = useLanguage();
 
@@ -51,6 +51,14 @@ export function CardDemo() {
               </a>
             ))}
           </div>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2.5 flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-neutral-950 shadow-[0_8px_30px_-10px_rgba(37,211,102,0.6)] transition hover:-translate-y-0.5 hover:bg-[#3ee07a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <IconBrandWhatsapp className="h-5 w-5" /> {t.contacto.card.whatsapp}
+          </a>
           <a
             href={profile.cv}
             target="_blank"

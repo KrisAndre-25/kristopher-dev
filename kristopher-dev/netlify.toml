@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
+# Funciones de servidor (chat con IA). La API key va en la variable de entorno
+# GEMINI_API_KEY del sitio en Netlify, nunca en el código.
+[functions]
+  directory = "netlify/functions"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -1,16 +1,12 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Mail, Download } from "lucide-react";
-import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
-import { A11yProvider } from "./hooks/useA11y";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { A11yProvider, useA11y } from "./hooks/useA11y";
 import { NavbarDemo } from "./components/demos/navbar-demo";
-import { StickyBannerDemo } from "./components/demos/sticky-banner-demo";
 import { HeroDemo } from "./components/demos/hero-demo";
 import { ScrollVelocityDemo } from "./components/demos/scroll-velocity-demo";
 import { ColourfulText } from "./components/ui/colourful-text";
 import { SectionHeading } from "./components/SectionHeading";
 import { LoaderComponent } from "./components/ui/loader";
-import { useContent } from "./data/useContent";
 import { useUiStrings } from "./data/ui-strings";
 import { useLanguage } from "./hooks/useLanguage";
 
@@ -25,12 +21,6 @@ const AboutDemo = lazy(() =>
 );
 const SkillsDemo = lazy(() =>
   import("./components/demos/skills-demo").then((m) => ({ default: m.SkillsDemo })),
-);
-const FeaturesSectionDemo = lazy(() =>
-  import("./components/demos/features-section-demo").then((m) => ({ default: m.FeaturesSectionDemo })),
-);
-const BentoGridThirdDemo = lazy(() =>
-  import("./components/demos/bento-grid-demo").then((m) => ({ default: m.BentoGridThirdDemo })),
 );
 const ProjectCardsDemo = lazy(() =>
   import("./components/demos/project-cards-demo").then((m) => ({ default: m.ProjectCardsDemo })),
@@ -53,17 +43,21 @@ const ContactFormDemo = lazy(() =>
 const ContactExtrasDemo = lazy(() =>
   import("./components/demos/contact-extras-demo").then((m) => ({ default: m.ContactExtrasDemo })),
 );
-const DevConsoleDemo = lazy(() =>
-  import("./components/demos/dev-console-demo").then((m) => ({ default: m.DevConsoleDemo })),
+const AiChatDemo = lazy(() =>
+  import("./components/demos/ai-chat-demo").then((m) => ({ default: m.AiChatDemo })),
 );
-const CinematicFooter = lazy(() =>
-  import("./components/ui/motion-footer").then((m) => ({
-    default: m.CinematicFooter,
-  })),
+const SiteFooter = lazy(() =>
+  import("./components/demos/site-footer").then((m) => ({ default: m.SiteFooter })),
 );
 
+/** Aplica a todas las animaciones de Framer Motion la preferencia de
+ *  movimiento (sistema operativo + panel de accesibilidad del sitio). */
+function MotionPreference({ children }: { children: ReactNode }) {
+  const { motionEnabled } = useA11y();
+  return <MotionConfig reducedMotion={motionEnabled ? "never" : "always"}>{children}</MotionConfig>;
+}
+
 export default function App() {
-  const { profile, mailtoUrl } = useContent();
   const t = useUiStrings();
   const { language } = useLanguage();
   const [loading, setLoading] = useState(true);
@@ -73,15 +67,9 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const footerLinks = [
-    { label: language === "en" ? "Email" : "Correo", href: mailtoUrl, icon: Mail },
-    { label: "LinkedIn", href: profile.linkedin, icon: IconBrandLinkedin, external: true },
-    { label: "GitHub", href: profile.github, icon: IconBrandGithub, external: true },
-    { label: t.contacto.card.descargarCv, href: profile.cv, icon: Download, external: true, download: profile.cvName },
-  ];
-
   return (
     <A11yProvider>
+      <MotionPreference>
       <AnimatePresence>
         {loading && (
           <motion.div
@@ -103,7 +91,6 @@ export default function App() {
       </a>
 
       <div className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
-        <StickyBannerDemo />
         <NavbarDemo />
 
         <main id="contenido">
@@ -131,17 +118,8 @@ export default function App() {
             </Suspense>
           </section>
 
-          <section id="panorama" className="py-20 sm:py-24">
-            <Suspense fallback={null}>
-              <FeaturesSectionDemo />
-              <div className="mt-10">
-                <BentoGridThirdDemo />
-              </div>
-            </Suspense>
-          </section>
-
           <section id="proyectos" className="px-4 py-20 sm:py-24">
-            <SectionHeading number="04" eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
+            <SectionHeading number="03" eyebrow={t.proyectos.eyebrow} title={t.proyectos.title} />
             <Suspense fallback={null}>
               <ProjectCardsDemo />
             </Suspense>
@@ -154,7 +132,7 @@ export default function App() {
           </section>
 
           <section id="trayectoria" className="px-4 py-20 sm:py-24">
-            <SectionHeading number="06" eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
+            <SectionHeading number="05" eyebrow={t.trayectoria.eyebrow} title={t.trayectoria.title} />
             <Suspense fallback={null}>
               <TimelineDemo />
             </Suspense>
@@ -168,7 +146,7 @@ export default function App() {
 
           <section id="contacto" className="px-4 py-20 sm:py-24">
             <SectionHeading
-              number="08"
+              number="07"
               eyebrow={t.contacto.eyebrow}
               title={
                 <>
@@ -194,18 +172,14 @@ export default function App() {
         </main>
 
         <Suspense fallback={<div className="h-64 border-t border-white/10" />}>
-          <CinematicFooter
-            title="KRISTOPHER ASTUDILLO"
-            tagline={profile.availability}
-            links={footerLinks}
-            copyright={`© ${new Date().getFullYear()} ${profile.fullName} · ${t.footer.builtWith}`}
-          />
+          <SiteFooter />
         </Suspense>
       </div>
 
       <Suspense fallback={null}>
-        <DevConsoleDemo />
+        <AiChatDemo />
       </Suspense>
+      </MotionPreference>
     </A11yProvider>
   );
 }

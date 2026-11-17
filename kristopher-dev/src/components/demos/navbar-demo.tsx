@@ -5,7 +5,6 @@ import {
   IconHome,
   IconTerminal2,
   IconSparkles,
-  IconLayoutGrid,
   IconFolderCode,
   IconCertificate,
   IconRoute,
@@ -26,8 +25,12 @@ import { ContrastToggle } from "@/components/ui/contrast-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
 import { useContent } from "@/data/useContent";
 import { useUiStrings } from "@/data/ui-strings";
+import { useActiveSection } from "@/hooks/useEnvironment";
 
-const iconClass = "h-full w-full text-neutral-300";
+// Sin color propio: hereda `currentColor` del enlace que lo envuelve, así el
+// estado activo/hover de `FloatingDock` (que sí cambia de color) también
+// tiñe el ícono — antes quedaba fijo en neutral-300 sin importar el estado.
+const iconClass = "h-full w-full";
 
 function scrollToContact() {
   document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -42,7 +45,6 @@ export function NavbarDemo() {
     { title: t.nav.inicio, href: "#inicio", icon: <IconHome className={iconClass} /> },
     { title: t.nav.stack, href: "#tecnologias", icon: <IconTerminal2 className={iconClass} /> },
     { title: t.nav.habilidades, href: "#habilidades", icon: <IconSparkles className={iconClass} /> },
-    { title: t.nav.panorama, href: "#panorama", icon: <IconLayoutGrid className={iconClass} /> },
     { title: t.nav.proyectos, href: "#proyectos", icon: <IconFolderCode className={iconClass} /> },
     { title: t.nav.certificaciones, href: "#certificaciones", icon: <IconCertificate className={iconClass} /> },
     { title: t.nav.trayectoria, href: "#trayectoria", icon: <IconRoute className={iconClass} /> },
@@ -50,8 +52,11 @@ export function NavbarDemo() {
     { title: t.nav.contacto, href: "#contacto", icon: <IconMail className={iconClass} /> },
   ];
 
+  const activeId = useActiveSection(items.map((item) => item.href.slice(1)));
+  const activeHref = `#${activeId}`;
+
   return (
-    <Navbar className="top-12">
+    <Navbar>
       <NavBody>
         <NavbarLogo>
           <img
@@ -67,6 +72,7 @@ export function NavbarDemo() {
 
         <FloatingDock
           items={items}
+          activeHref={activeHref}
           className="border-none bg-transparent px-0 py-0 backdrop-blur-none"
         />
 
@@ -101,17 +107,23 @@ export function NavbarDemo() {
           <MobileNavToggle isOpen={isOpen} onClick={() => setIsOpen((v) => !v)} />
         </MobileNavHeader>
         <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          {items.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="flex w-full items-center gap-3 py-2 text-base font-medium text-neutral-200 hover:text-white"
-            >
-              <span className="h-4 w-4">{item.icon}</span>
-              {item.title}
-            </a>
-          ))}
+          {items.map((item) => {
+            const isActive = item.href === activeHref;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                aria-current={isActive ? "true" : undefined}
+                className={`flex w-full items-center gap-3 rounded-lg px-2 py-2 text-base font-medium transition-colors ${
+                  isActive ? "bg-sky-400/10 text-sky-300" : "text-neutral-200 hover:text-white"
+                }`}
+              >
+                <span className="h-4 w-4">{item.icon}</span>
+                {item.title}
+              </a>
+            );
+          })}
 
           <div className="flex w-full items-center justify-between border-t border-white/10 pt-3">
             <span className="text-xs font-medium text-neutral-400">{t.navbar.contrastLabel}</span>

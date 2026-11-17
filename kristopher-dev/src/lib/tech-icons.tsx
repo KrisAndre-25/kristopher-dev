@@ -13,6 +13,11 @@ import {
   Container,
   Mountain,
   Cloud,
+  Terminal,
+  Code,
+  Bot,
+  Puzzle,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +40,13 @@ export const TECH_ICON: Record<string, { icon: LucideIcon; color: string }> = {
   Terraform: { icon: Mountain, color: "#7B42BC" },
   "AWS Academy": { icon: Cloud, color: "#FF9900" },
   "JUnit 5": { icon: FlaskConical, color: "#25A162" },
+  "Claude Code": { icon: Terminal, color: "#D97757" },
+  Codex: { icon: Code, color: "#10A37F" },
+  "Agentes de IA": { icon: Bot, color: "#38BDF8" },
+  "AI agents": { icon: Bot, color: "#38BDF8" },
+  "Skills y plugins": { icon: Puzzle, color: "#A78BFA" },
+  "Skills & plugins": { icon: Puzzle, color: "#A78BFA" },
+  "Gemini API": { icon: Sparkles, color: "#4E86F7" },
 };
 
 export function techIcon(name: string) {

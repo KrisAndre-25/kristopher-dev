@@ -27,7 +27,12 @@ export function InteractiveHoverButton({
       <span className="relative z-10 inline-flex items-center gap-2 transition-all duration-300 group-hover:translate-x-8 group-hover:opacity-0">
         {children}
       </span>
-      <span className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100">
+      {/* Copia solo visual para la animación: oculta a lectores de pantalla
+          para que el texto del botón no se lea dos veces. */}
+      <span
+        aria-hidden="true"
+        className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
+      >
         {children}
         <ArrowRight className="h-4 w-4 shrink-0" />
       </span>

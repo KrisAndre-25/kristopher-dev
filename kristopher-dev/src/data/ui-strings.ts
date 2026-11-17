@@ -30,7 +30,7 @@ export const uiStrings = {
     },
     hero: {
       welcomeTitle: "Bienvenido/a al Portafolio de Kristopher Astudillo",
-      subtitle: "Analista Programador - Full Stack Jr - Desarrollo de Software",
+      subtitle: "Desarrollador Full Stack · Pensamiento QA · Soluciones con IA",
     },
     stackSection: {
       eyebrow: "Stack técnico",
@@ -40,23 +40,24 @@ export const uiStrings = {
       ubicacion: "Ubicación",
       disponibilidad: "Disponibilidad",
       metodologia: "Metodología",
-      metodologiaValue: "Scrum y Kanban",
-      heading: "Full Stack con mentalidad QA",
-      techLine: "React & TypeScript • Java & Spring Boot",
+      metodologiaValue: "Ágil · tableros Kanban",
+      heading: "Full Stack con pensamiento QA que construye con IA",
+      techLine: "React & TypeScript • Java & Spring Boot • Claude Code, Codex y agentes",
       paragraph:
-        "Unifico la creación de interfaces web dinámicas y accesibles con una arquitectura backend sólida. Mi experiencia en automatización de pruebas (QA Automation) me otorga una perspectiva preventiva única: diseño soluciones pensando en casos límite, mantenibilidad y cobertura E2E antes de escribir la primera línea de código. Desarrollo bajo estándares de código limpio, escalable y metodologías ágiles.",
+        "Construyo productos de punta a punta: interfaces en React y TypeScript, backend en Java con Spring Boot e IA integrada donde aporta valor real (modelos vía API, agentes y automatizaciones), que es el trabajo de un AI Engineer. Uso Claude Code y Codex a diario y creo agentes, skills y plugins para desarrollar más rápido sin perder calidad. Mi pensamiento QA, que se formó en mi práctica en Speaknosis, me hace diseñar pensando en casos límite y en cómo probarlo desde el inicio. Me organizo con metodología ágil en tableros Kanban.",
       disponibilidadValue: "Inmediata (Remoto / Presencial)",
     },
     habilidades: {
       eyebrow: "Habilidades",
-      title: "Técnicas duras y blandas",
+      title: "Lo humano también se programa",
       caption:
-        "Lo técnico se aprende con práctica; lo humano se construye con equipo. Ambas cosas están en cada entrega.",
+        "El stack se actualiza cada año; comunicar, colaborar y mejorar procesos es lo que hace que ese stack entregue valor.",
       hardTitle: "Hard skills",
       softTitle: "Soft skills",
       hard: [
         "React & TypeScript",
         "Java & Spring Boot",
+        "Claude Code, Codex y agentes IA",
         "Playwright (E2E)",
         "PostgreSQL / MySQL",
         "Docker",
@@ -72,6 +73,54 @@ export const uiStrings = {
       ],
       githubAria: "Ver GitHub de Kristopher",
       screenshotTitle: "hard_skills.dev — soft_skills.dev",
+      transferTitle: "Habilidades transferibles",
+      transferLead:
+        "Desde 2017 trabajando con personas: eso hoy se nota en cómo comunico, colaboro y diseño procesos.",
+      transferable: [
+        {
+          title: "Comunicación clara",
+          description:
+            "Desde 2017 trabajo de cara al público: eso me enseñó a escuchar y a explicar sin tecnicismos. Hoy traduzco lo técnico para equipos no técnicos, presento en vivo (como en la EXPO APS 2026) y documento la arquitectura para que cualquiera pueda continuar el trabajo sin fricción.",
+        },
+        {
+          title: "Trabajo multidisciplinario",
+          description:
+            "He construido software junto a ingenieros industriales, equipos de salud y líderes técnicos. Escucho primero, entiendo el problema desde su disciplina y después propongo: así el resultado resuelve la necesidad real y no solo la técnica.",
+        },
+        {
+          title: "Metodología ágil · Kanban",
+          description:
+            "Organizo mi trabajo con metodología ágil en tableros Kanban: tareas visibles, prioridades claras, poco trabajo en curso y entregas continuas. En DMAIX, mi dupla (Ing. Civil Industrial) propuso Lean Six Sigma para la operación de la planta; yo traduje esos procesos a software y gestioné el desarrollo con Kanban.",
+        },
+        {
+          title: "Calma bajo presión",
+          description:
+            "Turnos de alta demanda en caja y atención, y eventos en vivo como la transcripción de más de 177.000 palabras en la EXPO APS, me enseñaron a priorizar, mantener el foco y resolver problemas sin perder el trato con las personas.",
+        },
+        {
+          title: "Enseñar y acompañar",
+          description:
+            "Capacité a compañeros nuevos en cada trabajo y, en el programa Duplas Intergeneracionales, acompañé a mi dupla en el uso de herramientas digitales e IA. Compartir conocimiento acelera al equipo completo, no solo a mí.",
+        },
+        {
+          title: "Mejora continua",
+          description:
+            "Itero con feedback real: DMAIX pasó de V1 a V2 según lo que pedía el taller, y en Speaknosis estabilicé más de 15 pruebas inestables. Propongo mejoras cuando veo una oportunidad y mido el impacto antes de dar algo por cerrado.",
+        },
+      ],
+      portrait: {
+        role: "Desarrollador Full Stack · pensamiento QA",
+        quote:
+          "Me apasiona transformar ideas en software funcional, cuidando cada detalle: desde una interfaz limpia hasta la lógica que la sostiene.",
+        location: "Santiago, Chile",
+        availability: "Incorporación inmediata",
+        stats: [
+          { value: "2017", label: "trabajando con personas" },
+          { value: "30+", label: "casos E2E en producción" },
+          { value: "177K", label: "palabras transcritas en vivo" },
+        ],
+      },
+      stackTitle: "Stack técnico",
     },
     panorama: {
       title: "Un vistazo rápido",
@@ -153,12 +202,45 @@ export const uiStrings = {
       githubLinkLabel: "Ver código en GitHub",
       carouselImageLabel: "Imagen",
       carouselGoTo: "Ir a la imagen",
+      prevLabel: "Proyecto anterior",
+      nextLabel: "Proyecto siguiente",
+      dmaix: {
+        category: "Duplas Intergeneracionales · Entel × Desafío Latam",
+        blurb: "Trazabilidad digital en tiempo real para plantas metalúrgicas, impulsada por IA.",
+        highlightsHeading: "Lo que hace",
+        title: "DMAIX",
+        link: "https://dmaix.netlify.app",
+        linkLabel: "Visitar dmaix.netlify.app",
+        description:
+          "Plataforma nacida del programa Duplas Intergeneracionales de Entel y Desafío Latam. Construida en equipo junto a un Ing. Civil Industrial. DMAIX elimina el traspapeleo y la ceguera operativa llevando todo a una trazabilidad digital en tiempo real impulsada por IA. Mi dupla aportó Lean Six Sigma para la operación de planta y yo desarrollé el software con metodología ágil (Kanban). Software 100% modular probado en plantas metalúrgicas (Cerrado con nota 7.0).",
+        cards: [
+          { title: "DMAIX", alt: "Portada del proyecto DMAIX" },
+          {
+            title: "De los procesos de planta al software",
+            alt: "Ciclo DMAIC de Lean Six Sigma usado en la operación de planta",
+            body: "Mi dupla aportó Lean Six Sigma (DMAIC, OEE/OTD) para la operación de la planta; yo lo traduje a modelo de datos y dashboards, y gestioné el desarrollo con metodología ágil en tableros Kanban.",
+          },
+          {
+            title: "Trazabilidad en tiempo real",
+            alt: "Línea de tiempo de una orden de trabajo en DMAIX",
+            body: "Órdenes de trabajo digitales con accesos por rol, alertas automáticas a Slack ante paradas y analítica con la API de Gemini Flash.",
+          },
+          {
+            title: "Probado en planta · Nota 7.0",
+            alt: "DMAIX: probado en planta metalúrgica, nota final 7.0",
+            body: "Software 100% modular, iterado de V1 a V2 con feedback real del taller: dashboards táctiles, responsivos y con modo de alto contraste.",
+          },
+        ],
+        stack: ["React", "Vite", "Supabase", "Resend", "Slack", "Gemini Flash"],
+      },
     },
     certificaciones: {
       eyebrow: "Certificaciones",
       title: "Certificados",
       verificable: "Verificable",
       verCertificado: "Ver certificado",
+      listLabel: "Todos los certificados",
+      gridHint: "Haz clic en un certificado para verlo · pasa el cursor para pausar",
       verPdf: "Ver PDF",
       verificar: "Verificar",
       cerrar: "Cerrar",
@@ -193,6 +275,14 @@ export const uiStrings = {
     trayectoriaTimeline: {
       items: [
         {
+          period: "2026 · EXPO APS",
+          heading: "EXPO APS 2026 junto a Speaknosis",
+          badge: "177.000+ palabras",
+          gallery: "aps2026",
+          paragraph:
+            "Despliegue presencial en la EXPO APS 2026 transcribiendo la data de todas las charlas. Trabajo junto a un equipo multidisciplinario logrando un procesamiento masivo de más de 177.000 palabras transcritas. Una experiencia increíble comprobando el potencial de la tecnología aplicada a eventos de gran envergadura.",
+        },
+        {
           period: "2026 — Presente",
           heading: "Ingeniería en Informática (Continuidad de Estudios) — DuocUC",
           badge: "En curso",
@@ -223,6 +313,7 @@ export const uiStrings = {
           period: "Marzo 2026 — Mayo 2026",
           heading: "Práctica Profesional — Speaknosis Chile SpA",
           subtitle: "Practicante QA Automation & Software Development",
+          gallery: "speaknosis",
           bullets: [
             "Implementación del 100% de la suite de pruebas E2E (+30 casos) con Playwright y JavaScript.",
             "Eliminación de +15 flaky tests mediante aserciones dinámicas y data mocking.",
@@ -262,13 +353,28 @@ export const uiStrings = {
         studymatchRegisterAlt: "Captura del formulario de registro de StudyMatch",
         speaknosisImg1Alt: "Captura del trabajo de QA Automation en Speaknosis Chile (1)",
         speaknosisImg2Alt: "Captura del trabajo de QA Automation en Speaknosis Chile (2)",
+        aps1Alt: "Equipo de Speaknosis en el escenario de la EXPO APS 2026",
+        aps2Alt: "Stand de Speaknosis en la EXPO APS 2026",
+        aps3Alt: "Puesto de transcripción en vivo durante una charla de la EXPO APS 2026",
+        studymatchShots: [
+          "StudyMatch: panel principal con una propuesta de match",
+          "StudyMatch: aviso de nueva coincidencia académica",
+          "StudyMatch: mis conexiones de estudio",
+          "StudyMatch: chat entre compañeros que hicieron match",
+          "StudyMatch: salas y sesiones de estudio",
+          "StudyMatch: edición del perfil estudiantil",
+          "StudyMatch: centro de mando del administrador",
+          "StudyMatch: gestión de la estructura académica",
+          "StudyMatch: gestión de espacios del campus",
+          "StudyMatch: panel docente de solicitudes de tutoría",
+        ],
       },
       tools: {
         heading: "Gestión, documentación y herramientas",
         groups: [
           {
             label: "Gestión de proyectos y Agile",
-            items: ["Jira", "Trello", "Notion", "Scrum", "Kanban"],
+            items: ["Metodología ágil", "Tableros Kanban", "Trello", "Jira", "Notion"],
           },
           {
             label: "Documentación y arquitectura",
@@ -290,6 +396,7 @@ export const uiStrings = {
       card: {
         incorporacion: "Incorporación inmediata en Santiago de Chile, remoto o híbrido.",
         descargarCv: "Descargar CV",
+        whatsapp: "Escríbeme por WhatsApp",
       },
       extras: {
         locationLabel: "Ubicación:",
@@ -323,6 +430,42 @@ export const uiStrings = {
       cta: "¿Construimos algo juntos?",
       madeWith: "Hecho con",
       backToTop: "Volver arriba",
+      blurb:
+        "Desarrollador Full Stack con pensamiento QA que construye con IA. Santiago de Chile · remoto, híbrido o presencial.",
+      navTitle: "Navegación",
+      projectsTitle: "Proyectos",
+      contactTitle: "Contacto",
+      repoLabel: "Código del portafolio",
+      emailLabel: "Correo",
+      localTime: "Santiago",
+      localTimeAria: "Mi hora local",
+      socialsAria: "Redes y contacto",
+    },
+    aiChat: {
+      triggerLabel: "Pregúntale a la IA",
+      title: "Asistente de Kristopher",
+      subtitle: "Respuestas sobre su perfil, proyectos y disponibilidad",
+      disclaimer: "Respuestas generadas por IA (Gemini) con la información de este portafolio. Pueden contener errores; para algo importante, escríbele directo.",
+      placeholder: "Escribe tu pregunta…",
+      inputLabel: "Tu pregunta",
+      send: "Enviar pregunta",
+      stop: "Detener respuesta",
+      close: "Cerrar chat",
+      greeting: "¡Hola! Soy el asistente de Kristopher. Pregúntame por su experiencia, sus proyectos, su stack o su disponibilidad.",
+      suggestionsLabel: "Prueba con",
+      suggestions: [
+        "¿Qué experiencia tiene Kristopher?",
+        "Cuéntame sobre DMAIX",
+        "¿Cómo usa la IA en su trabajo?",
+        "¿Está disponible para trabajar?",
+      ],
+      thinking: "Escribiendo respuesta",
+      errors: {
+        not_configured: "El chat todavía no está configurado. Mientras tanto, puedes escribirle por correo o WhatsApp.",
+        rate_limited: "Alcanzaste el límite de preguntas por ahora. Intenta de nuevo en unos minutos.",
+        upstream_busy: "El servicio de IA está ocupado en este momento. Intenta de nuevo en un rato.",
+        generic: "No pude responder en este momento. Intenta de nuevo o escríbele directo por correo o WhatsApp.",
+      },
     },
     devConsole: {
       triggerAria: "Abrir consola interactiva (Ctrl+K)",
@@ -392,7 +535,7 @@ export const uiStrings = {
     },
     hero: {
       welcomeTitle: "Welcome to Kristopher Astudillo's Portfolio",
-      subtitle: "Systems Analyst - Full Stack Jr - Software Development",
+      subtitle: "Full Stack Developer · QA mindset · AI-powered solutions",
     },
     stackSection: {
       eyebrow: "Tech stack",
@@ -402,23 +545,24 @@ export const uiStrings = {
       ubicacion: "Location",
       disponibilidad: "Availability",
       metodologia: "Methodology",
-      metodologiaValue: "Scrum & Kanban",
-      heading: "Full Stack with a QA mindset",
-      techLine: "React & TypeScript • Java & Spring Boot",
+      metodologiaValue: "Agile · Kanban boards",
+      heading: "Full Stack with a QA mindset, building with AI",
+      techLine: "React & TypeScript • Java & Spring Boot • Claude Code, Codex & agents",
       paragraph:
-        "I bring together dynamic, accessible web interfaces and a solid backend architecture. My background in test automation (QA Automation) gives me a unique preventive perspective: I design solutions thinking about edge cases, maintainability, and E2E coverage before writing the first line of code. I build to clean, scalable code standards and agile methodologies.",
+        "I build products end to end: React and TypeScript interfaces, a Java and Spring Boot backend, and AI integrated where it adds real value (models via API, agents and automations), which is the work of an AI Engineer. I use Claude Code and Codex every day and build agents, skills and plugins to ship faster without losing quality. My QA mindset, formed during my internship at Speaknosis, makes me design around edge cases and how to test from day one. I organize my work with agile methodology on Kanban boards.",
       disponibilidadValue: "Immediate (Remote / On-site)",
     },
     habilidades: {
       eyebrow: "Skills",
-      title: "Hard and soft skills",
+      title: "The human side ships too",
       caption:
-        "The technical side comes from practice; the human side comes from working with a team. Both show up in every delivery.",
+        "Stacks change every year; communicating, collaborating and improving processes is what makes that stack deliver value.",
       hardTitle: "Hard skills",
       softTitle: "Soft skills",
       hard: [
         "React & TypeScript",
         "Java & Spring Boot",
+        "Claude Code, Codex & AI agents",
         "Playwright (E2E)",
         "PostgreSQL / MySQL",
         "Docker",
@@ -434,6 +578,54 @@ export const uiStrings = {
       ],
       githubAria: "View Kristopher's GitHub",
       screenshotTitle: "hard_skills.dev — soft_skills.dev",
+      transferTitle: "Transferable skills",
+      transferLead:
+        "Working with people since 2017: it shows in how I communicate, collaborate and design processes.",
+      transferable: [
+        {
+          title: "Clear communication",
+          description:
+            "I've worked face-to-face with the public since 2017: it taught me to listen and to explain without jargon. Today I translate technical topics for non-technical teams, present live (like at APS EXPO 2026) and document architecture so anyone can pick up the work without friction.",
+        },
+        {
+          title: "Multidisciplinary teamwork",
+          description:
+            "I've built software alongside industrial engineers, healthcare teams and tech leads. I listen first, understand the problem from their discipline, and then propose: that way the result solves the real need, not just the technical one.",
+        },
+        {
+          title: "Agile methodology · Kanban",
+          description:
+            "I organize my work with agile methodology on Kanban boards: visible tasks, clear priorities, limited work in progress and continuous delivery. In DMAIX, my teammate (an Industrial Civil Engineer) proposed Lean Six Sigma for plant operations; I translated those processes into software and managed development with Kanban.",
+        },
+        {
+          title: "Calm under pressure",
+          description:
+            "High-demand shifts in retail and service, plus live events like transcribing 177,000+ words at APS EXPO, taught me to prioritize, stay focused and solve problems without losing the human touch.",
+        },
+        {
+          title: "Teaching & mentoring",
+          description:
+            "I trained new coworkers at every job and, in the Intergenerational Duos program, coached my teammate on digital and AI tools. Sharing knowledge speeds up the whole team, not just me.",
+        },
+        {
+          title: "Continuous improvement",
+          description:
+            "I iterate on real feedback: DMAIX went from V1 to V2 based on what the shop floor needed, and at Speaknosis I stabilized 15+ flaky tests. I suggest improvements when I spot them and measure impact before calling it done.",
+        },
+      ],
+      portrait: {
+        role: "Full Stack Developer · QA mindset",
+        quote:
+          "I love turning ideas into working software, caring about every detail: from a clean interface to the logic that powers it.",
+        location: "Santiago, Chile",
+        availability: "Available immediately",
+        stats: [
+          { value: "2017", label: "working with people" },
+          { value: "30+", label: "E2E cases in production" },
+          { value: "177K", label: "words transcribed live" },
+        ],
+      },
+      stackTitle: "Tech stack",
     },
     panorama: {
       title: "A quick look",
@@ -515,12 +707,45 @@ export const uiStrings = {
       githubLinkLabel: "View code on GitHub",
       carouselImageLabel: "Image",
       carouselGoTo: "Go to image",
+      prevLabel: "Previous project",
+      nextLabel: "Next project",
+      dmaix: {
+        category: "Intergenerational Duos · Entel × Desafío Latam",
+        blurb: "Real-time digital traceability for metalworking plants, powered by AI.",
+        highlightsHeading: "What it does",
+        title: "DMAIX",
+        link: "https://dmaix.netlify.app",
+        linkLabel: "Visit dmaix.netlify.app",
+        description:
+          "A platform born from Entel and Desafío Latam's Intergenerational Duos program, built as a team alongside an Industrial Civil Engineer. DMAIX eliminates paper shuffling and operational blindness by moving everything to real-time, AI-powered digital traceability. My teammate brought Lean Six Sigma for plant operations and I built the software with agile methodology (Kanban). 100% modular software tested in metalworking plants (closed with a perfect 7.0 grade).",
+        cards: [
+          { title: "DMAIX", alt: "DMAIX project cover" },
+          {
+            title: "From plant processes to software",
+            alt: "Lean Six Sigma DMAIC cycle used for plant operations",
+            body: "My teammate brought Lean Six Sigma (DMAIC, OEE/OTD) for plant operations; I translated it into the data model and dashboards, and managed development with agile methodology on Kanban boards.",
+          },
+          {
+            title: "Real-time traceability",
+            alt: "Timeline of a DMAIX work order",
+            body: "Digital work orders with role-based access, automatic Slack alerts on downtime and analytics powered by the Gemini Flash API.",
+          },
+          {
+            title: "Plant-tested · Grade 7.0",
+            alt: "DMAIX: tested in a metalworking plant, final grade 7.0",
+            body: "100% modular software, iterated from V1 to V2 with real shop-floor feedback: touch-friendly, responsive dashboards with a high-contrast mode.",
+          },
+        ],
+        stack: ["React", "Vite", "Supabase", "Resend", "Slack", "Gemini Flash"],
+      },
     },
     certificaciones: {
       eyebrow: "Certifications",
       title: "Certificates",
       verificable: "Verifiable",
       verCertificado: "View certificate",
+      listLabel: "All certificates",
+      gridHint: "Click a certificate to open it · hover to pause",
       verPdf: "View PDF",
       verificar: "Verify",
       cerrar: "Close",
@@ -555,6 +780,14 @@ export const uiStrings = {
     trayectoriaTimeline: {
       items: [
         {
+          period: "2026 · APS EXPO",
+          heading: "APS EXPO 2026 with Speaknosis",
+          badge: "177,000+ words",
+          gallery: "aps2026",
+          paragraph:
+            "On-site deployment at APS EXPO 2026, transcribing the data from every talk. Working alongside a multidisciplinary team, we processed more than 177,000 transcribed words at scale. An incredible experience proving the potential of technology applied to large-scale events.",
+        },
+        {
           period: "2026 — Present",
           heading: "B.Eng. in Computer Science (Continuing Studies) — DuocUC",
           badge: "In progress",
@@ -585,6 +818,7 @@ export const uiStrings = {
           period: "March 2026 — May 2026",
           heading: "Professional Internship — Speaknosis Chile SpA",
           subtitle: "QA Automation & Software Development Intern",
+          gallery: "speaknosis",
           bullets: [
             "Implemented 100% of the E2E test suite (30+ cases) with Playwright and JavaScript.",
             "Removed 15+ flaky tests through dynamic assertions and data mocking.",
@@ -624,13 +858,28 @@ export const uiStrings = {
         studymatchRegisterAlt: "Screenshot of the StudyMatch registration form",
         speaknosisImg1Alt: "Screenshot of QA Automation work at Speaknosis Chile (1)",
         speaknosisImg2Alt: "Screenshot of QA Automation work at Speaknosis Chile (2)",
+        aps1Alt: "Speaknosis team on stage at APS EXPO 2026",
+        aps2Alt: "Speaknosis booth at APS EXPO 2026",
+        aps3Alt: "Live transcription station during a talk at APS EXPO 2026",
+        studymatchShots: [
+          "StudyMatch: main dashboard with a match proposal",
+          "StudyMatch: new academic match notice",
+          "StudyMatch: my study connections",
+          "StudyMatch: chat between matched classmates",
+          "StudyMatch: study rooms and sessions",
+          "StudyMatch: editing the student profile",
+          "StudyMatch: admin command center",
+          "StudyMatch: academic structure management",
+          "StudyMatch: campus space management",
+          "StudyMatch: teacher panel for tutoring requests",
+        ],
       },
       tools: {
         heading: "Management, documentation & tooling",
         groups: [
           {
             label: "Project management & Agile",
-            items: ["Jira", "Trello", "Notion", "Scrum", "Kanban"],
+            items: ["Agile methodology", "Kanban boards", "Trello", "Jira", "Notion"],
           },
           {
             label: "Documentation & architecture",
@@ -651,6 +900,7 @@ export const uiStrings = {
       card: {
         incorporacion: "Immediate start in Santiago, Chile, remote or hybrid.",
         descargarCv: "Download CV",
+        whatsapp: "Message me on WhatsApp",
       },
       extras: {
         locationLabel: "Location:",
@@ -684,6 +934,42 @@ export const uiStrings = {
       cta: "Shall we build something together?",
       madeWith: "Made with",
       backToTop: "Back to top",
+      blurb:
+        "Full Stack Developer with a QA mindset, building with AI. Santiago, Chile · remote, hybrid or on-site.",
+      navTitle: "Navigation",
+      projectsTitle: "Projects",
+      contactTitle: "Contact",
+      repoLabel: "Portfolio source code",
+      emailLabel: "Email",
+      localTime: "Santiago",
+      localTimeAria: "My local time",
+      socialsAria: "Social and contact links",
+    },
+    aiChat: {
+      triggerLabel: "Ask the AI",
+      title: "Kristopher's assistant",
+      subtitle: "Answers about his profile, projects and availability",
+      disclaimer: "AI-generated answers (Gemini) based on this portfolio. They may contain mistakes; for anything important, contact him directly.",
+      placeholder: "Type your question…",
+      inputLabel: "Your question",
+      send: "Send question",
+      stop: "Stop answer",
+      close: "Close chat",
+      greeting: "Hi! I'm Kristopher's assistant. Ask me about his experience, projects, stack or availability.",
+      suggestionsLabel: "Try asking",
+      suggestions: [
+        "What experience does Kristopher have?",
+        "Tell me about DMAIX",
+        "How does he use AI in his work?",
+        "Is he available to work?",
+      ],
+      thinking: "Writing answer",
+      errors: {
+        not_configured: "The chat isn't set up yet. Meanwhile, you can reach him by email or WhatsApp.",
+        rate_limited: "You've reached the question limit for now. Please try again in a few minutes.",
+        upstream_busy: "The AI service is busy right now. Please try again shortly.",
+        generic: "I couldn't answer right now. Please try again or contact him directly by email or WhatsApp.",
+      },
     },
     devConsole: {
       triggerAria: "Open interactive console (Ctrl+K)",

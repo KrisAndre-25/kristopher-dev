@@ -18,12 +18,12 @@ export const profile = {
   githubRepo: "https://github.com/KrisAndre-25/kristopher-dev",
   portfolio: "https://kristopher-astudillo-portfolio.netlify.app/",
   photo: "kristopher.jpg",
-  cv: "/cv/CV_Kristopher_Andre_Astudillo.pdf",
+  cv: "/cv/CV_Kristopher_Astudillo.pdf",
   cvName: "CV-Kristopher-Astudillo.pdf",
   /** Número en formato internacional sin signos, para el enlace de WhatsApp. */
   whatsapp: "56950902425",
   intro:
-    "Mi foco es el Frontend: construyo interfaces rápidas, accesibles y con una experiencia de usuario cuidada, en React y TypeScript. Vengo del QA automatizado, así que pienso en casos límite y mantenibilidad antes de escribir la primera línea. Código limpio, escalable y reutilizable, trabajado bajo Scrum y Kanban.",
+    "Mi foco es el Frontend: construyo interfaces rápidas, accesibles y con una experiencia de usuario cuidada, en React y TypeScript. Tengo pensamiento QA, que se formó en mi práctica en Speaknosis: pienso en casos límite y en cómo probar antes de escribir la primera línea. Construyo con IA como un AI Engineer: Claude Code, Codex, agentes, skills y plugins. Me organizo con metodología ágil en tableros Kanban.",
   availability: "Disponible para nuevos proyectos",
 };
 
@@ -359,11 +359,21 @@ export const stackGroups: { group: string; items: Tech[] }[] = [
   {
     group: "Calidad e infraestructura",
     items: [
-      { name: "Playwright", level: "solido", note: "Suite E2E completa en un producto real. Mi especialidad." },
+      { name: "Playwright", level: "solido", note: "Suite E2E completa en un producto real (práctica en Speaknosis)." },
       { name: "Docker", level: "practico", note: "Contenedores para desarrollo y despliegue." },
       { name: "Terraform", level: "practico", note: "Infraestructura como código, aplicada en StudyMatch." },
       { name: "AWS Academy", level: "practico", note: "Laboratorio académico de DuocUC para experimentar con la nube." },
       { name: "JUnit 5", level: "practico", note: "Pruebas unitarias en backend Java." },
+    ],
+  },
+  {
+    group: "IA y agentes",
+    items: [
+      { name: "Claude Code", level: "solido", note: "Mi entorno diario de desarrollo asistido por IA." },
+      { name: "Codex", level: "practico", note: "Agente de código para tareas en paralelo y revisiones." },
+      { name: "Agentes de IA", level: "practico", note: "Diseño agentes y subagentes que ejecutan tareas de punta a punta." },
+      { name: "Skills y plugins", level: "practico", note: "Creo skills, plugins y conexiones MCP para extender los agentes." },
+      { name: "Gemini API", level: "practico", note: "Analítica y reportes en tiempo real dentro de DMAIX." },
     ],
   },
 ];
@@ -523,14 +533,14 @@ export const intents: Intent[] = [
     keys: ["metodologia", "metodología", "scrum", "kanban", "agil", "ágil", "agile", "sprint", "jira", "trello", "como organizas", "cómo organizas"],
     question: "¿Qué metodología usa?",
     answer:
-      "Trabaja con metodologías ágiles: Scrum y Kanban, apoyándose en Jira para el seguimiento. En StudyMatch coordinó tareas entre frontend y backend en un equipo de dos, y en Speaknosis se integró a los ciclos del equipo con Git Flow y Conventional Commits.",
+      "Trabaja con metodología ágil en tableros Kanban (Trello o Jira) para el seguimiento. En StudyMatch coordinó tareas entre frontend y backend en un equipo de dos, y en Speaknosis se integró a los ciclos del equipo con Git Flow y Conventional Commits.",
   },
   {
     id: "como-programa",
     keys: ["como escribes", "cómo escribes", "codigo limpio", "código limpio", "clean code", "buenas practicas", "buenas prácticas", "arquitectura", "mantenible", "escalable", "como desarrollas", "cómo desarrollas"],
     question: "¿Cómo escribe código?",
     answer:
-      "Con foco en mantenibilidad: componentes reutilizables, tipado estricto y separación clara de responsabilidades. Su formación en QA lo lleva a pensar primero en qué puede fallar. En este portafolio, por ejemplo, todo el contenido vive en un solo archivo de datos, separado de los componentes.",
+      "Con foco en mantenibilidad: componentes reutilizables, tipado estricto y separación clara de responsabilidades. Su pensamiento QA lo lleva a pensar primero en qué puede fallar. En este portafolio, por ejemplo, todo el contenido vive en un solo archivo de datos, separado de los componentes.",
   },
   {
     id: "git",
@@ -640,6 +650,19 @@ export type Cert = {
 };
 
 export const certifications: Cert[] = [
+  {
+    id: "desafiolatam-ia",
+    name: "Desarrollo de Soluciones con IA",
+    org: "Desafío Latam · Entel",
+    date: "21 de octubre de 2026",
+    hours: "28 horas",
+    summary:
+      "Programa Duplas Intergeneracionales Tech 2026 (Entel + Desafío Latam). Diseño y construcción de soluciones con IA en dupla con un profesional senior de la industria; de aquí nació DMAIX, plataforma de trazabilidad digital para plantas metalúrgicas.",
+    skills: ["Inteligencia Artificial", "Desarrollo de producto", "Trabajo en dupla"],
+    image: "certificados/CertificadoDesafiolatam.jpeg",
+    thumb: "certificados/CertificadoDesafiolatam.jpeg",
+    code: "10443",
+  },
   {
     id: "daxus-ia",
     name: "Inmersión Inteligencia Artificial en la Práctica",

@@ -24,15 +24,18 @@ export function FloatingDock({
   items,
   className,
   mobileClassName,
+  activeHref,
 }: {
   items: FloatingDockItem[];
   className?: string;
   mobileClassName?: string;
+  /** href del item que corresponde a la sección visible — lo resalta de forma persistente, no solo al hover. */
+  activeHref?: string;
 }) {
   return (
     <>
-      <FloatingDockDesktop items={items} className={className} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} className={className} activeHref={activeHref} />
+      <FloatingDockMobile items={items} className={mobileClassName} activeHref={activeHref} />
     </>
   );
 }
@@ -40,9 +43,11 @@ export function FloatingDock({
 function FloatingDockMobile({
   items,
   className,
+  activeHref,
 }: {
   items: FloatingDockItem[];
   className?: string;
+  activeHref?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -54,30 +59,39 @@ function FloatingDockMobile({
             layoutId="dock-mobile"
             className="absolute bottom-full mb-2 flex flex-col gap-2"
           >
-            {items.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10, transition: { delay: (items.length - i) * 0.03 } }}
-                transition={{ delay: i * 0.03 }}
-              >
-                <a
-                  href={item.href}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noreferrer" : undefined}
-                  onClick={() => {
-                    item.onClick?.();
-                    setOpen(false);
-                  }}
-                  aria-label={item.title}
-                  title={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-neutral-900 text-neutral-300"
+            {items.map((item, i) => {
+              const isActive = item.href === activeHref;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10, transition: { delay: (items.length - i) * 0.03 } }}
+                  transition={{ delay: i * 0.03 }}
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
+                  <a
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noreferrer" : undefined}
+                    onClick={() => {
+                      item.onClick?.();
+                      setOpen(false);
+                    }}
+                    aria-label={item.title}
+                    aria-current={isActive ? "true" : undefined}
+                    title={item.title}
+                    className={cn(
+                      "flex h-10 w-10 items-center justify-center rounded-full border shadow-lg shadow-black/40 transition-colors",
+                      isActive
+                        ? "border-sky-400/60 bg-sky-400/15 text-sky-300"
+                        : "border-white/15 bg-neutral-800 text-neutral-200 hover:border-sky-400/40 hover:text-sky-300",
+                    )}
+                  >
+                    <div className="h-4 w-4">{item.icon}</div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -86,7 +100,7 @@ function FloatingDockMobile({
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Cerrar accesos rápidos" : "Abrir accesos rápidos"}
         aria-expanded={open}
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-neutral-900 text-neutral-300"
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-neutral-800 text-neutral-200 shadow-lg shadow-black/40"
       >
         {open ? <IconX className="h-4 w-4" /> : <IconLayoutGrid className="h-4 w-4" />}
       </button>
@@ -97,9 +111,11 @@ function FloatingDockMobile({
 function FloatingDockDesktop({
   items,
   className,
+  activeHref,
 }: {
   items: FloatingDockItem[];
   className?: string;
+  activeHref?: string;
 }) {
   const mouseX = useMotionValue(Infinity);
 
@@ -108,12 +124,12 @@ function FloatingDockDesktop({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "hidden items-end gap-3 rounded-full border border-white/10 bg-neutral-900/90 px-3 py-2 backdrop-blur lg:flex",
+        "hidden items-end gap-3 rounded-full border border-white/10 bg-neutral-900/90 px-3 py-2 shadow-lg shadow-black/30 backdrop-blur lg:flex",
         className,
       )}
     >
       {items.map((item) => (
-        <DockIcon key={item.title} mouseX={mouseX} item={item} />
+        <DockIcon key={item.title} mouseX={mouseX} item={item} isActive={item.href === activeHref} />
       ))}
     </div>
   );
@@ -122,9 +138,11 @@ function FloatingDockDesktop({
 function DockIcon({
   mouseX,
   item,
+  isActive,
 }: {
   mouseX: MotionValue<number>;
   item: FloatingDockItem;
+  isActive: boolean;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
 
@@ -149,8 +167,14 @@ function DockIcon({
         rel={item.external ? "noreferrer" : undefined}
         onClick={item.onClick}
         aria-label={item.title}
+        aria-current={isActive ? "true" : undefined}
         style={{ width: size, height: size }}
-        className="flex items-center justify-center rounded-full border border-white/10 bg-neutral-800 text-neutral-300 transition-colors hover:border-sky-400/50 hover:text-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+        className={cn(
+          "flex items-center justify-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400",
+          isActive
+            ? "border-sky-400/60 bg-sky-400/15 text-sky-300"
+            : "border-white/10 bg-neutral-800 text-neutral-200 hover:border-sky-400/50 hover:text-sky-300",
+        )}
       >
         <div className="h-1/2 w-1/2">{item.icon}</div>
       </motion.a>

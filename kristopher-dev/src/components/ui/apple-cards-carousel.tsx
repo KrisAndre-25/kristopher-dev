@@ -1,41 +1,68 @@
 "use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  type JSX,
-  type ReactNode,
-} from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useId, useRef, useState, createContext, useContext } from "react";
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
+import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 
-export interface CardData {
-  category: string;
-  title: string;
-  src: string;
-  content: ReactNode;
+/*
+ * Apple Cards Carousel (Aceternity UI), adaptado al portafolio:
+ * - Sin Next.js: `next/image` se reemplaza por <img> en BlurImage.
+ * - El sitio es oscuro fijo (no usa la clase `dark`), así que los pares
+ *   claro/oscuro quedan en su versión oscura.
+ * - `fit: "contain"` muestra la imagen completa sobre un fondo desenfocado
+ *   de sí misma, para capturas horizontales en tarjetas verticales.
+ * - Escape y clic fuera solo cierran cuando la tarjeta está abierta (en el
+ *   original, cualquier clic en la página desplazaba el carrusel).
+ * - Etiquetas accesibles en flechas, cierre y diálogo.
+ * - El panel abierto se monta en un portal a <body> (si no, la barra de
+ *   navegación queda por encima por el transform de la tarjeta).
+ */
+
+interface CarouselProps {
+  items: React.ReactElement[];
+  initialScroll?: number;
+  /** Etiqueta accesible de la flecha izquierda. */
+  prevLabel?: string;
+  /** Etiqueta accesible de la flecha derecha. */
+  nextLabel?: string;
 }
 
-const CarouselContext = createContext<{
+type Card = {
+  src: string;
+  title: string;
+  category: string;
+  content: React.ReactNode;
+  /** Texto alternativo de la imagen (por defecto, el título). */
+  alt?: string;
+  /** "cover" (original) recorta; "contain" muestra la imagen completa;
+   *  "logo" centra el logo en una placa clara del mismo tamaño en todas las tarjetas. */
+  fit?: "cover" | "contain" | "logo";
+  /** Color del brillo de fondo en modo "logo". */
+  accent?: string;
+};
+
+/** Alias de compatibilidad con código anterior del proyecto. */
+export type CardData = Card;
+
+export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
-}>({ onCardClose: () => {}, currentIndex: 0 });
+}>({
+  onCardClose: () => {},
+  currentIndex: 0,
+});
 
 export const Carousel = ({
   items,
   initialScroll = 0,
-}: {
-  items: JSX.Element[];
-  initialScroll?: number;
-}) => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  prevLabel = "Previous",
+  nextLabel = "Next",
+}: CarouselProps) => {
+  const carouselRef = React.useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+  const [canScrollRight, setCanScrollRight] = React.useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -43,29 +70,32 @@ export const Carousel = ({
       carouselRef.current.scrollLeft = initialScroll;
       checkScrollability();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialScroll]);
 
   const checkScrollability = () => {
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
       setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
     }
   };
 
   const scrollLeft = () => {
-    carouselRef.current?.scrollBy({ left: -320, behavior: "smooth" });
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
   };
 
   const scrollRight = () => {
-    carouselRef.current?.scrollBy({ left: 320, behavior: "smooth" });
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
   };
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = window.innerWidth < 768 ? 230 : 384;
-      const gap = window.innerWidth < 768 ? 4 : 8;
+      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
@@ -75,25 +105,41 @@ export const Carousel = ({
     }
   };
 
+  const isMobile = () => {
+    return window && window.innerWidth < 768;
+  };
+
   return (
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-14 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
+          <div className={cn("absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l")}></div>
+
           <div
             className={cn(
-              "mx-auto flex max-w-6xl flex-row justify-start gap-4 px-4",
+              "flex flex-row justify-start gap-4 pl-4",
+              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
             )}
           >
             {items.map((item, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 * index, ease: "easeOut" }}
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                    delay: 0.2 * index,
+                    ease: "easeOut",
+                  },
+                }}
                 key={"card" + index}
                 className="rounded-3xl last:pr-[5%] md:last:pr-[33%]"
               >
@@ -104,20 +150,22 @@ export const Carousel = ({
         </div>
         <div className="mr-10 flex justify-end gap-2">
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-neutral-900 text-white disabled:opacity-40"
+            type="button"
+            aria-label={prevLabel}
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:opacity-50"
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            aria-label="Anterior"
           >
-            <IconArrowNarrowLeft className="h-5 w-5" />
+            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
           </button>
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-neutral-900 text-white disabled:opacity-40"
+            type="button"
+            aria-label={nextLabel}
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:opacity-50"
             onClick={scrollRight}
             disabled={!canScrollRight}
-            aria-label="Siguiente"
           >
-            <IconArrowNarrowRight className="h-5 w-5" />
+            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
           </button>
         </div>
       </div>
@@ -129,42 +177,59 @@ export const Card = ({
   card,
   index,
   layout = false,
+  closeLabel = "Close",
 }: {
-  card: CardData;
+  card: Card;
   index: number;
   layout?: boolean;
+  /** Etiqueta accesible del botón de cierre. */
+  closeLabel?: string;
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
+  const { onCardClose } = useContext(CarouselContext);
 
   useEffect(() => {
+    if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") handleClose();
+      if (event.key === "Escape") {
+        handleClose();
+      }
     }
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  useOutsideClick(containerRef, () => handleClose());
+  useOutsideClick(containerRef, () => {
+    if (open) handleClose();
+  });
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
     onCardClose(index);
   };
 
-  return (
-    <>
+  const alt = card.alt ?? card.title;
+
+  // El panel abierto va en un portal a <body>: dentro de la tarjeta animada
+  // (transform) quedaría atrapado bajo la barra de navegación.
+  const overlay = (
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-[100] h-screen overflow-auto">
+          <div className="fixed inset-0 z-[200] h-screen overflow-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -172,66 +237,138 @@ export const Card = ({
               className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
             />
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative z-[101] mx-auto my-10 h-fit max-w-5xl rounded-3xl border border-white/10 bg-neutral-950 p-4 font-sans md:p-10"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
+              className="relative z-[60] mx-auto my-10 h-fit max-w-5xl rounded-3xl border border-white/10 bg-neutral-900 p-4 font-sans md:p-10"
             >
               <button
-                className="sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white text-neutral-950"
+                ref={closeRef}
+                type="button"
+                aria-label={closeLabel}
+                className="sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                 onClick={handleClose}
-                aria-label="Cerrar"
               >
-                <IconX className="h-5 w-5" />
+                <IconX className="h-6 w-6 text-neutral-900" />
               </button>
               <motion.p
                 layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-sky-400"
+                className="text-base font-medium text-white"
               >
                 {card.category}
               </motion.p>
               <motion.p
+                id={titleId}
                 layoutId={layout ? `title-${card.title}` : undefined}
-                className="mt-2 text-2xl font-semibold text-neutral-100 md:text-4xl"
+                className="mt-4 text-2xl font-semibold text-white md:text-5xl"
               >
                 {card.title}
               </motion.p>
-              <div className="py-6">{card.content}</div>
+              <div className="py-10">{card.content}</div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+  );
+
+  return (
+    <>
+      {typeof document !== "undefined" ? createPortal(overlay, document.body) : null}
       <motion.button
+        type="button"
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className={cn(
-          "relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 text-left md:h-[28rem] md:w-96",
-          currentIndex === index && "ring-2 ring-sky-400/60",
-        )}
+        className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400 md:h-[40rem] md:w-96"
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-1/2 bg-gradient-to-b from-black/70 via-transparent to-transparent" />
-        <div className="relative z-40 p-6">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+        <div className="relative z-40 p-8">
           <motion.p
-            layoutId={layout ? `category-${card.title}` : undefined}
-            className="text-left font-sans text-sm font-medium text-white/80 md:text-base"
+            layoutId={layout ? `category-${card.category}` : undefined}
+            className="text-left font-sans text-sm font-medium text-white md:text-base"
           >
             {card.category}
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold text-white [text-wrap:balance] md:text-3xl"
+            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
           >
             {card.title}
           </motion.p>
         </div>
-        <img
-          src={card.src}
-          alt={card.title}
-          className="absolute inset-0 z-10 h-full w-full object-cover opacity-70"
-        />
+        {card.fit === "logo" ? (
+          <>
+            {/* Fondo uniforme: oscuro con un brillo del color del proyecto */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 z-10 bg-neutral-950"
+              style={{
+                backgroundImage: `radial-gradient(circle at 50% 62%, ${card.accent ?? "#38bdf8"}55, transparent 62%)`,
+              }}
+            />
+            {/* Placa: mismo tamaño y posición en todas las tarjetas */}
+            <div className="absolute inset-x-0 bottom-0 top-[28%] z-20 flex items-center justify-center">
+              <div className="flex aspect-square w-[72%] items-center justify-center rounded-[2rem] bg-white shadow-2xl ring-1 ring-white/30">
+                <BlurImage
+                  src={card.src}
+                  alt={alt}
+                  className="h-[72%] w-[78%] object-contain"
+                />
+              </div>
+            </div>
+          </>
+        ) : card.fit === "contain" ? (
+          <>
+            {/* Fondo: la misma imagen desenfocada llena la tarjeta */}
+            {/* <img> simple: BlurImage añade blur-0 al cargar y, con
+                tailwind-merge v3 sobre Tailwind v3, esa clase anula blur-2xl. */}
+            <img
+              src={card.src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 z-10 h-full w-full scale-125 object-cover opacity-40 blur-2xl"
+            />
+            {/* Frente: la imagen completa, sin recortes */}
+            <BlurImage
+              src={card.src}
+              alt={alt}
+              className="absolute inset-x-0 bottom-0 z-20 h-[62%] object-contain object-bottom px-4 pb-6 drop-shadow-2xl"
+            />
+          </>
+        ) : (
+          <BlurImage src={card.src} alt={alt} className="absolute inset-0 z-10 object-cover" />
+        )}
       </motion.button>
     </>
+  );
+};
+
+export const BlurImage = ({
+  height,
+  width,
+  src,
+  className,
+  alt,
+  ...rest
+}: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  const [isLoading, setLoading] = useState(true);
+  return (
+    <img
+      className={cn("h-full w-full transition duration-300", isLoading ? "blur-sm" : "blur-0", className)}
+      onLoad={() => setLoading(false)}
+      src={src}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      alt={alt !== undefined ? alt : "Background of a beautiful view"}
+      {...rest}
+    />
   );
 };
