@@ -13,8 +13,13 @@
  *   de la instancia, se reinicia con cada arranque en frío).
  * - Tamaño máximo por mensaje, por historial y de la respuesta.
  * - No guarda ni registra el contenido de las conversaciones.
+ *
+ * Respaldo gratis: si no hay key, o Gemini responde con error o sin cuota,
+ * contesta con las respuestas preescritas del portafolio (sin IA). La
+ * cabecera `x-chat-source` indica "gemini" o "local".
  */
 import { SYSTEM_INSTRUCTION } from "../../src/data/ai-context";
+import { localAnswer } from "../../src/data/local-answers";
 
 const DEFAULT_MODEL = "gemini-3.5-flash-lite";
 const API_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
@@ -48,6 +53,17 @@ function json(status: number, body: Record<string, unknown>) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+  });
+}
+
+function textResponse(text: string, source: "local") {
+  return new Response(text, {
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+      "x-chat-source": source,
+    },
   });
 }
 
@@ -86,9 +102,6 @@ export default async (req: Request) => {
   if (req.method !== "POST") return json(405, { error: "method_not_allowed" });
   if (!sameOrigin(req)) return json(403, { error: "forbidden" });
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return json(503, { error: "not_configured" });
-
   const ip =
     req.headers.get("x-nf-client-connection-ip") ??
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
@@ -103,6 +116,10 @@ export default async (req: Request) => {
   }
   const messages = parseMessages(body);
   if (!messages) return json(400, { error: "bad_request" });
+  const lastQuestion = messages[messages.length - 1].content;
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return textResponse(localAnswer(lastQuestion), "local");
 
   const model = process.env.GEMINI_MODEL || DEFAULT_MODEL;
   const upstream = await fetch(`${API_BASE}/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`, {
@@ -121,7 +138,7 @@ export default async (req: Request) => {
   if (!upstream || !upstream.ok || !upstream.body) {
     // Solo el código de estado: nunca se registra el contenido del chat.
     console.error("gemini_error", upstream?.status ?? "network");
-    return json(502, { error: upstream?.status === 429 ? "upstream_busy" : "upstream_error" });
+    return textResponse(localAnswer(lastQuestion), "local");
   }
 
   // Convierte el SSE de Gemini (líneas "data: {json}") en texto plano.
@@ -167,6 +184,7 @@ export default async (req: Request) => {
       "content-type": "text/plain; charset=utf-8",
       "cache-control": "no-store",
       "x-content-type-options": "nosniff",
+      "x-chat-source": "gemini",
     },
   });
 };

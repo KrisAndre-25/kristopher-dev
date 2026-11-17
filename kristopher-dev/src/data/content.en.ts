@@ -347,6 +347,27 @@ export const stackGroups: { group: string; items: Tech[] }[] = [
 /* ── Assistant ────────────────────────────────────────── */
 export const intents: Intent[] = [
   {
+    id: "dmaix",
+    keys: ["dmaix", "duos", "entel", "desafio latam", "metalworking", "work orders", "traceability", "lean six sigma", "plant"],
+    question: "What is DMAIX?",
+    answer:
+      "DMAIX is a platform born from Entel and Desafío Latam's Intergenerational Duos program. It replaces paperwork in metalworking plants with digital work orders, real-time traceability and AI (Gemini API). He built it with an Industrial Civil Engineer: his teammate proposed Lean Six Sigma for plant operations and Kristopher translated it into software, organizing development with Kanban. It closed with a perfect 7.0 grade. See it at https://dmaix.netlify.app",
+  },
+  {
+    id: "expo-aps",
+    keys: ["aps", "expo", "event", "transcription", "transcribe", "177", "words"],
+    question: "What did he do at APS EXPO 2026?",
+    answer:
+      "At APS EXPO 2026 he joined Speaknosis for an on-site deployment, transcribing the data from every talk with a multidisciplinary team. They processed more than 177,000 transcribed words.",
+  },
+  {
+    id: "ia",
+    keys: ["use ai", "uses ai", "using ai", "with ai", "ai", "artificial intelligence", "claude", "claude code", "codex", "agents", "agent", "skills", "plugins", "gemini", "ai engineer", "llm"],
+    question: "How does he use AI?",
+    answer:
+      "Kristopher works like an AI Engineer: he integrates models via API (like Gemini in DMAIX) and uses Claude Code and Codex every day, building agents, skills and plugins to ship faster without losing quality. This portfolio chat is one example.",
+  },
+  {
     id: "saludo",
     keys: ["hola", "holi", "buenas", "hey", "ey", "que tal", "como estas", "hello", "hi", "hey there"],
     question: "Hi",

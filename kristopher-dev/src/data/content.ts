@@ -390,6 +390,27 @@ export type Intent = {
 };
 
 export const intents: Intent[] = [
+  {
+    id: "dmaix",
+    keys: ["dmaix", "duplas", "entel", "desafio latam", "metalurgica", "ordenes de trabajo", "trazabilidad", "lean six sigma", "planta"],
+    question: "¿Qué es DMAIX?",
+    answer:
+      "DMAIX es una plataforma nacida del programa Duplas Intergeneracionales de Entel y Desafío Latam. Reemplaza el papeleo en plantas metalúrgicas por órdenes de trabajo digitales con trazabilidad en tiempo real e IA (API de Gemini). La construyó en dupla con un Ingeniero Civil Industrial: él propuso Lean Six Sigma para la operación de la planta y Kristopher lo tradujo a software, organizando el desarrollo con Kanban. Se cerró con nota 7.0. Puedes verla en https://dmaix.netlify.app",
+  },
+  {
+    id: "expo-aps",
+    keys: ["aps", "expo", "evento", "transcripcion", "transcribir", "177", "palabras"],
+    question: "¿Qué hizo en la EXPO APS 2026?",
+    answer:
+      "En la EXPO APS 2026 participó junto a Speaknosis en un despliegue presencial, transcribiendo la data de todas las charlas con un equipo multidisciplinario. Procesaron más de 177.000 palabras transcritas.",
+  },
+  {
+    id: "ia",
+    keys: ["usa la ia", "usa ia", "con ia", "ia", "inteligencia artificial", "ai", "claude", "claude code", "codex", "agentes", "agente", "skills", "plugins", "gemini", "ai engineer", "llm"],
+    question: "¿Cómo usa la IA?",
+    answer:
+      "Kristopher trabaja como lo haría un AI Engineer: integra modelos vía API (como Gemini en DMAIX), y usa Claude Code y Codex a diario, creando agentes, skills y plugins para desarrollar más rápido sin perder calidad. Este mismo chat del portafolio es un ejemplo.",
+  },
   /* ── Saludos y cortesía ─────────────────────────────── */
   {
     id: "saludo",
@@ -623,7 +644,7 @@ export const intents: Intent[] = [
 ];
 
 export const assistantFallback =
-  "No tengo una respuesta preparada para eso. Puedo contarte sobre su stack, su experiencia en Speaknosis, el proyecto StudyMatch, su formación o cómo contactarlo. También puedes escribirle directamente a kristopherastudillo@gmail.com.";
+  "No tengo una respuesta preparada para eso. Puedo contarte sobre su stack, su experiencia en Speaknosis, los proyectos StudyMatch y DMAIX, cómo usa la IA, su formación o cómo contactarlo. También puedes escribirle directamente a kristopherastudillo@gmail.com.";
 
 /* ── Certificaciones ──────────────────────────────────── */
 export type Cert = {

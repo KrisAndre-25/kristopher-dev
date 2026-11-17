@@ -460,6 +460,7 @@ export const uiStrings = {
         "¿Está disponible para trabajar?",
       ],
       thinking: "Escribiendo respuesta",
+      localNote: "Respuesta preparada del portafolio (sin IA)",
       errors: {
         not_configured: "El chat todavía no está configurado. Mientras tanto, puedes escribirle por correo o WhatsApp.",
         rate_limited: "Alcanzaste el límite de preguntas por ahora. Intenta de nuevo en unos minutos.",
@@ -964,6 +965,7 @@ export const uiStrings = {
         "Is he available to work?",
       ],
       thinking: "Writing answer",
+      localNote: "Prepared answer from the portfolio (no AI)",
       errors: {
         not_configured: "The chat isn't set up yet. Meanwhile, you can reach him by email or WhatsApp.",
         rate_limited: "You've reached the question limit for now. Please try again in a few minutes.",

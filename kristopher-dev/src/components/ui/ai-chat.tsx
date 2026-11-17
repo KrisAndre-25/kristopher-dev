@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IconArrowUp, IconPlayerStopFilled, IconSparkles, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
-export type ChatMessage = { role: "user" | "assistant"; content: string };
+export type ChatMessage = { role: "user" | "assistant"; content: string; local?: boolean };
 
 export type AiChatStrings = {
   triggerLabel: string;
@@ -21,6 +21,7 @@ export type AiChatStrings = {
   suggestionsLabel: string;
   suggestions: readonly string[];
   thinking: string;
+  localNote: string;
   errors: {
     not_configured: string;
     rate_limited: string;
@@ -82,7 +83,7 @@ export function AiChat({ strings: s }: { strings: AiChatStrings }) {
       const res = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history.map(({ role, content }) => ({ role, content })) }),
         signal: controller.signal,
       });
       if (!res.ok || !res.body) {
@@ -93,6 +94,13 @@ export function AiChat({ strings: s }: { strings: AiChatStrings }) {
           /* sin cuerpo JSON */
         }
         throw new Error(code);
+      }
+      if (res.headers.get("x-chat-source") === "local") {
+        setMessages((prev) => {
+          const next = [...prev];
+          next[next.length - 1] = { ...next[next.length - 1], local: true };
+          return next;
+        });
       }
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -211,9 +219,14 @@ export function AiChat({ strings: s }: { strings: AiChatStrings }) {
               )}
 
               {messages.map((m, i) => (
-                <Bubble key={i} role={m.role}>
-                  {m.content || (streaming && i === messages.length - 1 ? <Thinking label={s.thinking} /> : null)}
-                </Bubble>
+                <div key={i}>
+                  <Bubble role={m.role}>
+                    {m.content || (streaming && i === messages.length - 1 ? <Thinking label={s.thinking} /> : null)}
+                  </Bubble>
+                  {m.local && m.content && (
+                    <p className="mt-1 pl-1 text-[0.65rem] text-neutral-500">{s.localNote}</p>
+                  )}
+                </div>
               ))}
 
               {error && (
